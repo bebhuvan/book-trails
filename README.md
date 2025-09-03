@@ -1,43 +1,67 @@
-# Astro Starter Kit: Minimal
+# BookTrails
 
-```sh
-npm create astro@latest -- --template minimal
+**Version 1.0.0**
+
+Discover books through authentic mentions from writers, thinkers, and creators you trust. Follow the trails of recommendations from podcasters, writers, and thought leaders.
+
+## About
+
+There's no shortage of sites for book recommendations. However, BookTrails takes a different approach by aggregating genuine book mentions from thoughtful voices across podcasts, interviews, and conversations. Instead of generic recommendation lists, we capture authentic discussions about books in their original context.
+
+## Features
+
+- 📚 Curated book mentions from podcasts and interviews
+- 🌓 Dark/light mode with system preference detection
+- 📱 Fully responsive design
+- 🔍 Search functionality across books and mentions
+- 📄 Archive and categorized browsing
+- 📡 RSS feed for latest mentions
+- 🚀 PWA support with offline capabilities
+- ⚡ Fast static site generation with Astro
+
+## Tech Stack
+
+- **Framework**: Astro 5.x with TypeScript
+- **Styling**: Tailwind CSS v4
+- **Deployment**: Cloudflare Workers
+- **Icons**: Minimal text-based icons
+- **RSS**: @astrojs/rss for feed generation
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+
+# Deploy to Cloudflare Workers
+npm run deploy
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Content Structure
 
-## 🚀 Project Structure
+All book mentions are stored in `src/data/mentions.ts` with structured data including:
+- Book details (title, author, publication year)
+- Mention context and sentiment
+- Source information (podcast, interview, etc.)
+- Transcript excerpts where available
 
-Inside of your Astro project, you'll see the following folders and files:
+## Deployment
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+The site is configured for deployment on Cloudflare Workers at `booktrails.rabbitholes.garden`.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## License
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+MIT
 
-Any static assets, like images, can be placed in the `public/` directory.
+---
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+*Curating book mentions from thoughtful voices across the web.*

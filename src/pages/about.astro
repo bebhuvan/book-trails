@@ -2,174 +2,76 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="About - Mentioned" description="Learn about the mission behind Mentioned and how we curate book recommendations from thoughtful voices.">
-  <article class="py-16">
-    <div class="max-w-3xl mx-auto px-6">
-      <!-- Header -->
-      <header class="text-center mb-16">
-        <h1 class="text-4xl md:text-5xl font-light text-stone-900 dark:text-stone-100 mb-6 tracking-tight">
-          About Mentioned
-        </h1>
-        <p class="text-xl text-stone-600 dark:text-stone-400 font-light leading-relaxed max-w-2xl mx-auto">
-          Discovering books through the authentic voices of writers, thinkers, and creators we admire.
-        </p>
-      </header>
-
-      <!-- Main Content -->
-      <div class="prose prose-stone dark:prose-invert prose-lg max-w-none">
+<Layout title="About - BookTrails" description="Learn about BookTrails - aggregating authentic book mentions from thoughtful voices across podcasts, interviews, and conversations.">
+  <section class="py-12 sm:py-16">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <h1 class="text-3xl font-light text-stone-900 dark:text-stone-100 mb-8">About</h1>
+      
+      <div class="prose prose-stone dark:prose-invert max-w-none space-y-6">
+        <div class="text-lg text-stone-600 dark:text-stone-400 leading-relaxed space-y-4">
+          <p>
+            There's no shortage of sites for book recommendations. A cursory Google search throws up thousands of results. Though I've long been tempted to build a site to aggregate book lists and recommendations, I've so far avoided the temptation.
+          </p>
+          
+          <p>
+            However, I was listening to some podcasts and the guests mentioned some books and had interesting things—both good and bad—to say about them. That's when the idea hit me that it's probably a better idea to aggregate mentions of books by smart and thoughtful people, and that's how this humble little site was born.
+          </p>
+          
+          <p>
+            What I do is make a note of book mentions I come across and update them here with some context. That's it. Nothing more.
+          </p>
+        </div>
         
-        <!-- Mission -->
-        <section class="mb-16">
-          <h2 class="text-3xl font-light text-stone-900 dark:text-stone-100 mb-8">Our Mission</h2>
-          <div class="space-y-6 text-stone-700 dark:text-stone-300 leading-relaxed">
-            <p>
-              In an age of algorithmic recommendations and endless content, finding truly meaningful books can feel overwhelming. 
-              That's where <em>Mentioned</em> comes in.
-            </p>
-            <p>
-              We believe that the most powerful book recommendations come not from marketing campaigns or bestseller lists, 
-              but from the authentic mentions found in the writings of people whose judgment we trust. When Nicholas Carr 
-              references Lewis Mumford, or when Paul Krugman cites Barry Eichengreen, these aren't just citations—they're 
-              windows into the intellectual genealogies that shape great thinking.
-            </p>
-            <p>
-              Our mission is simple: to surface these authentic book mentions from notable writers, thinkers, and creators, 
-              providing you with a curated pathway to discover books that have genuinely influenced thoughtful minds.
-            </p>
-          </div>
-        </section>
-
-        <!-- How It Works -->
-        <section class="mb-16">
-          <h2 class="text-3xl font-light text-stone-900 dark:text-stone-100 mb-8">How It Works</h2>
-          <div class="space-y-6 text-stone-700 dark:text-stone-300 leading-relaxed">
-            <p>
-              Every mention on this site is carefully curated from published works, interviews, essays, and other credible sources. 
-              We focus on three key elements:
-            </p>
-            <div class="grid md:grid-cols-3 gap-8 my-12">
-              <div class="text-center">
-                <div class="w-16 h-16 bg-orange-100 dark:bg-orange-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span class="text-2xl">📚</span>
-                </div>
-                <h3 class="text-xl font-medium text-stone-900 dark:text-stone-100 mb-2">Context</h3>
-                <p class="text-sm">Every mention includes the full context in which the book was referenced, not just isolated quotes.</p>
-              </div>
-              <div class="text-center">
-                <div class="w-16 h-16 bg-orange-100 dark:bg-orange-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span class="text-2xl">🎯</span>
-                </div>
-                <h3 class="text-xl font-medium text-stone-900 dark:text-stone-100 mb-2">Sentiment</h3>
-                <p class="text-sm">We analyze whether the mention is positive, neutral, or critical, helping you understand the mentioner's perspective.</p>
-              </div>
-              <div class="text-center">
-                <div class="w-16 h-16 bg-orange-100 dark:bg-orange-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span class="text-2xl">🔗</span>
-                </div>
-                <h3 class="text-xl font-medium text-stone-900 dark:text-stone-100 mb-2">Access</h3>
-                <p class="text-sm">Direct links to sources, purchase options, free archives, and biographical information about both authors and mentioners.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Curation Standards -->
-        <section class="mb-16">
-          <h2 class="text-3xl font-light text-stone-900 dark:text-stone-100 mb-8">Curation Standards</h2>
-          <div class="space-y-6 text-stone-700 dark:text-stone-300 leading-relaxed">
-            <p>Not every book mention makes it onto our platform. We maintain high standards for inclusion:</p>
-            <ul class="space-y-3 ml-6">
-              <li><strong>Notable Voices:</strong> The mentioner must be a recognized expert, published author, or respected thinker in their field.</li>
-              <li><strong>Substantial Context:</strong> Casual or superficial references don't qualify. We look for meaningful engagement with the book's ideas.</li>
-              <li><strong>Verifiable Sources:</strong> Every mention is linked back to its original source, whether that's a published book, academic paper, interview, or credible publication.</li>
-              <li><strong>Intellectual Merit:</strong> We focus on books that contribute to serious discourse, regardless of their popularity or recency.</li>
-            </ul>
-          </div>
-        </section>
-
-        <!-- Our Values -->
-        <section class="mb-16">
-          <h2 class="text-3xl font-light text-stone-900 dark:text-stone-100 mb-8">Our Values</h2>
-          <div class="grid md:grid-cols-2 gap-8">
-            <div class="space-y-4">
-              <h3 class="text-xl font-medium text-stone-900 dark:text-stone-100">Intellectual Honesty</h3>
-              <p class="text-stone-700 dark:text-stone-300">
-                We present mentions as they are, including critical perspectives. A nuanced critique can be as valuable as enthusiastic praise.
-              </p>
-            </div>
-            <div class="space-y-4">
-              <h3 class="text-xl font-medium text-stone-900 dark:text-stone-100">Diverse Perspectives</h3>
-              <p class="text-stone-700 dark:text-stone-300">
-                Great ideas come from many traditions and viewpoints. We actively seek out mentions from voices across disciplines and backgrounds.
-              </p>
-            </div>
-            <div class="space-y-4">
-              <h3 class="text-xl font-medium text-stone-900 dark:text-stone-100">Open Access</h3>
-              <p class="text-stone-700 dark:text-stone-300">
-                Whenever possible, we link to free, legal sources where books can be read, particularly from Project Gutenberg and Internet Archive.
-              </p>
-            </div>
-            <div class="space-y-4">
-              <h3 class="text-xl font-medium text-stone-900 dark:text-stone-100">Timeless Focus</h3>
-              <p class="text-stone-700 dark:text-stone-300">
-                While we include contemporary works, we prioritize books with enduring value over trending topics or viral moments.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <!-- Get Involved -->
-        <section class="mb-16 bg-orange-50 dark:bg-orange-900/10 rounded-2xl p-8">
-          <h2 class="text-3xl font-light text-stone-900 dark:text-stone-100 mb-6">Get Involved</h2>
-          <div class="space-y-4 text-stone-700 dark:text-stone-300">
-            <p>
-              Found a book mention from a notable writer that we've missed? We'd love to hear about it. 
-              Send us an email with the details, including:
-            </p>
-            <ul class="space-y-2 ml-6">
-              <li>• The book title and author</li>
-              <li>• Who mentioned it and in what context</li>
-              <li>• A link to the original source</li>
-              <li>• The relevant quote or passage</li>
-            </ul>
-            <div class="pt-6">
-              <a 
-                href="mailto:suggestions@mentioned.com" 
-                class="inline-flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-xl transition-colors"
-              >
-                <span>📧</span>
-                Suggest a Mention
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <!-- Technical -->
-        <section class="mb-16">
-          <h2 class="text-3xl font-light text-stone-900 dark:text-stone-100 mb-8">Technical Details</h2>
-          <div class="space-y-6 text-stone-700 dark:text-stone-300 leading-relaxed text-sm">
-            <p>
-              This site is built with <a href="https://astro.build" class="text-orange-600 dark:text-orange-400 hover:underline">Astro</a>, 
-              designed for performance and accessibility. It uses semantic HTML, respects your system's dark mode preference, 
-              and loads quickly even on slower connections.
-            </p>
-            <p>
-              We don't track you, serve ads, or collect personal data. The site is funded by book affiliate links, 
-              which help support our curation efforts without compromising our editorial independence.
-            </p>
-          </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="text-center pt-16 border-t border-stone-200 dark:border-stone-700">
-          <p class="text-stone-600 dark:text-stone-400 mb-4">
-            <em>"A reader lives a thousand lives before he dies. The man who never reads lives only one."</em>
+        <div class="mt-12 pt-8 border-t border-stone-200 dark:border-stone-700">
+          <h2 class="text-2xl font-light text-stone-900 dark:text-stone-100 mb-6">Who am I?</h2>
+          
+          <p class="text-stone-600 dark:text-stone-400 mb-6">
+            I am Bhuvan and I do a bunch of random things on the internet and I write in a bunch of places. Some links to the latest random thing I am up to:
           </p>
-          <p class="text-sm text-stone-500 dark:text-stone-500">
-            — George R.R. Martin
-          </p>
-        </footer>
+          
+          <div class="space-y-3">
+            <a href="https://bebhuvan.com" class="flex items-center gap-3 p-4 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl hover:shadow-lg transition-all">
+              <div class="text-sm text-stone-600 dark:text-stone-400">📝</div>
+              <div>
+                <div class="font-medium text-stone-900 dark:text-stone-100">My Blog</div>
+                <div class="text-sm text-stone-600 dark:text-stone-400">bebhuvan.com</div>
+              </div>
+            </a>
+            
+            <a href="https://bhuvan.substack.com/" class="flex items-center gap-3 p-4 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl hover:shadow-lg transition-all">
+              <div class="text-sm text-stone-600 dark:text-stone-400">📧</div>
+              <div>
+                <div class="font-medium text-stone-900 dark:text-stone-100">Newsletter</div>
+                <div class="text-sm text-stone-600 dark:text-stone-400">bhuvan.substack.com</div>
+              </div>
+            </a>
+            
+            <a href="https://www.rabbitholes.garden/" class="flex items-center gap-3 p-4 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl hover:shadow-lg transition-all">
+              <div class="text-sm text-stone-600 dark:text-stone-400">🐰</div>
+              <div>
+                <div class="font-medium text-stone-900 dark:text-stone-100">Rabbit Holes</div>
+                <div class="text-sm text-stone-600 dark:text-stone-400">rabbitholes.garden</div>
+              </div>
+            </a>
+            
+            <a href="https://twitter.com/bebhuvan" class="flex items-center gap-3 p-4 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl hover:shadow-lg transition-all">
+              <div class="text-sm text-stone-600 dark:text-stone-400">🐦</div>
+              <div>
+                <div class="font-medium text-stone-900 dark:text-stone-100">Twitter</div>
+                <div class="text-sm text-stone-600 dark:text-stone-400">@bebhuvan</div>
+              </div>
+            </a>
+            
+            <a href="https://www.linkedin.com/in/bebhuvan/" class="flex items-center gap-3 p-4 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl hover:shadow-lg transition-all">
+              <div class="text-sm text-stone-600 dark:text-stone-400">💼</div>
+              <div>
+                <div class="font-medium text-stone-900 dark:text-stone-100">LinkedIn</div>
+                <div class="text-sm text-stone-600 dark:text-stone-400">bebhuvan</div>
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-  </article>
+  </section>
 </Layout>
