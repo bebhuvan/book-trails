@@ -1,0 +1,221 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MentionCard from '../components/MentionCard.astro';
+import { bookMentions } from '../data/mentions';
+---
+
+<Layout title="Search - BookTrails" description="Search through our collection of book mentions">
+  <section class="py-12 sm:py-16">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6">
+      <!-- Search Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-3xl font-light text-stone-900 dark:text-stone-100 mb-6">Search</h1>
+        
+        <!-- Search Input -->
+        <div class="relative">
+          <input 
+            type="text" 
+            id="search-input"
+            placeholder="Search books, authors, or mentioners..."
+            class="w-full px-6 py-4 text-base border border-stone-200 dark:border-stone-700 rounded-xl bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+            autofocus
+          >
+          <div class="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+        </div>
+        
+        <!-- Search Tips -->
+        <div class="mt-4 text-sm text-stone-500 dark:text-stone-500">
+          Try searching for: "Lewis Mumford", "economics", or "Paul Krugman"
+        </div>
+      </div>
+      
+      <!-- Results Count -->
+      <div id="results-count" class="text-center mb-8 text-stone-600 dark:text-stone-400">
+        Type to search...
+      </div>
+      
+      <!-- Results Container -->
+      <div id="results-container" class="space-y-8">
+        <!-- Results will be populated by JavaScript -->
+      </div>
+      
+      <!-- No Results Message -->
+      <div id="no-results" class="hidden text-center py-16">
+        <div class="text-stone-400 dark:text-stone-500 text-lg mb-4">📚</div>
+        <h3 class="text-xl font-medium text-stone-900 dark:text-stone-100 mb-2">No mentions found</h3>
+        <p class="text-stone-600 dark:text-stone-400">Try different search terms.</p>
+      </div>
+      
+      <!-- Initial State -->
+      <div id="initial-state" class="text-center py-16">
+        <div class="space-y-8">
+          <div>
+            <h3 class="text-lg font-medium text-stone-900 dark:text-stone-100 mb-4">Popular Searches</h3>
+            <div class="flex flex-wrap justify-center gap-2">
+              <button class="quick-search px-4 py-2 text-sm border border-stone-200 dark:border-stone-700 rounded-lg text-stone-600 dark:text-stone-400 hover:text-orange-600 dark:hover:text-orange-400 hover:border-orange-200 dark:hover:border-orange-700">
+                philosophy
+              </button>
+              <button class="quick-search px-4 py-2 text-sm border border-stone-200 dark:border-stone-700 rounded-lg text-stone-600 dark:text-stone-400 hover:text-orange-600 dark:hover:text-orange-400 hover:border-orange-200 dark:hover:border-orange-700">
+                economics
+              </button>
+              <button class="quick-search px-4 py-2 text-sm border border-stone-200 dark:border-stone-700 rounded-lg text-stone-600 dark:text-stone-400 hover:text-orange-600 dark:hover:text-orange-400 hover:border-orange-200 dark:hover:border-orange-700">
+                technology
+              </button>
+              <button class="quick-search px-4 py-2 text-sm border border-stone-200 dark:border-stone-700 rounded-lg text-stone-600 dark:text-stone-400 hover:text-orange-600 dark:hover:text-orange-400 hover:border-orange-200 dark:hover:border-orange-700">
+                history
+              </button>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-medium text-stone-900 dark:text-stone-100 mb-4">Recent Additions</h3>
+            <div class="text-sm text-stone-500 dark:text-stone-500 space-y-2">
+              {bookMentions.slice(0, 3).map(mention => (
+                <div>
+                  <a href={`/mentions/${mention.slug}`} class="hover:text-orange-600 dark:hover:text-orange-400">
+                    "{mention.book.title}" by {mention.book.author}
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script define:vars={{ allMentions: bookMentions }}>
+  const searchInput = document.getElementById('search-input');
+  const resultsContainer = document.getElementById('results-container');
+  const resultsCount = document.getElementById('results-count');
+  const noResults = document.getElementById('no-results');
+  const initialState = document.getElementById('initial-state');
+  const quickSearchBtns = document.querySelectorAll('.quick-search');
+  
+  let searchTimer;
+  
+  function performSearch(query) {
+    const searchTerm = query.toLowerCase().trim();
+    
+    if (searchTerm === '') {
+      resultsContainer.innerHTML = '';
+      resultsCount.textContent = 'Type to search...';
+      noResults.classList.add('hidden');
+      initialState.classList.remove('hidden');
+      return;
+    }
+    
+    initialState.classList.add('hidden');
+    
+    // Filter mentions
+    const filtered = allMentions.filter(mention => 
+      mention.book.title.toLowerCase().includes(searchTerm) ||
+      mention.book.author.toLowerCase().includes(searchTerm) ||
+      mention.source.name.toLowerCase().includes(searchTerm) ||
+      mention.mention.text.toLowerCase().includes(searchTerm) ||
+      mention.metadata.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+    );
+    
+    if (filtered.length === 0) {
+      resultsContainer.innerHTML = '';
+      noResults.classList.remove('hidden');
+      resultsCount.textContent = '';
+    } else {
+      noResults.classList.add('hidden');
+      resultsCount.textContent = `Found ${filtered.length} mention${filtered.length !== 1 ? 's' : ''}`;
+      
+      // Render results (simplified version)
+      resultsContainer.innerHTML = filtered.map(mention => `
+        <article class="bg-white dark:bg-stone-950 rounded-xl border border-stone-200 dark:border-stone-800 cursor-pointer">
+          <a href="/mentions/${mention.slug}" class="block p-8">
+            <div class="space-y-6">
+              <div class="space-y-2">
+                <h2 class="text-xl font-medium text-orange-600 dark:text-orange-400">
+                  ${mention.book.title}
+                </h2>
+                <p class="text-stone-600 dark:text-stone-400 font-medium">
+                  ${mention.book.author}
+                  ${mention.book.publishedYear ? `<span class="font-normal text-stone-500 dark:text-stone-500">
+                    (${mention.book.publishedYear})
+                  </span>` : ''}
+                </p>
+              </div>
+              
+              <div class="relative pl-8">
+                <div class="absolute left-0 -top-1 text-4xl text-orange-400 dark:text-orange-500 opacity-40 font-serif leading-none select-none">
+                  "
+                </div>
+                <blockquote class="text-stone-700 dark:text-stone-300 leading-relaxed italic text-[15px]">
+                  ${mention.mention.text}
+                </blockquote>
+              </div>
+              
+              <div class="flex items-start justify-between pt-4 border-t border-stone-100 dark:border-stone-700">
+                <div class="flex items-center space-x-3">
+                  <div class="w-8 h-8 bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-900 dark:to-orange-800 rounded-full flex items-center justify-center">
+                    <span class="text-xs font-medium text-orange-700 dark:text-orange-300">
+                      ${mention.source.name.charAt(0)}
+                    </span>
+                  </div>
+                  <div>
+                    <p class="font-medium text-stone-900 dark:text-stone-100 text-sm">
+                      ${mention.source.name}
+                    </p>
+                    <p class="text-xs text-stone-600 dark:text-stone-400">
+                      ${mention.source.context}
+                    </p>
+                  </div>
+                </div>
+                
+                <span class="text-xs text-stone-500 dark:text-stone-500">
+                  ${mention.mention.sentiment === 'positive' ? 'recommended' : 
+                    mention.mention.sentiment === 'critical' ? 'nuanced' : 'referenced'}
+                </span>
+              </div>
+              
+              <div class="pt-4 border-t border-stone-100 dark:border-stone-700">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs text-stone-500 dark:text-stone-500">
+                    Read more
+                  </span>
+                  <svg class="w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </a>
+        </article>
+      `).join('');
+    }
+  }
+  
+  // Search input handler with debounce
+  searchInput.addEventListener('input', (e) => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      performSearch(e.target.value);
+    }, 300);
+  });
+  
+  // Quick search buttons
+  quickSearchBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      searchInput.value = btn.textContent.trim();
+      performSearch(btn.textContent.trim());
+    });
+  });
+  
+  // Handle URL parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const searchQuery = urlParams.get('q');
+  if (searchQuery) {
+    searchInput.value = searchQuery;
+    performSearch(searchQuery);
+  }
+</script>

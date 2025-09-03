@@ -1,0 +1,228 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { bookMentions } from '../data/mentions';
+
+// Group books and aggregate mention data
+const bookGroups = bookMentions.reduce((acc, mention) => {
+  const key = `${mention.book.title}|${mention.book.author}`;
+  if (!acc[key]) {
+    acc[key] = {
+      book: mention.book,
+      mentions: [],
+      mentioners: new Set(),
+      sentiments: { positive: 0, neutral: 0, critical: 0 }
+    };
+  }
+  acc[key].mentions.push(mention);
+  acc[key].mentioners.add(mention.source.name);
+  acc[key].sentiments[mention.mention.sentiment]++;
+  return acc;
+}, {} as Record<string, any>);
+
+const uniqueBooks = Object.values(bookGroups).map(group => ({
+  ...group.book,
+  mentionCount: group.mentions.length,
+  mentionerCount: group.mentioners.size,
+  sentiments: group.sentiments,
+  mentions: group.mentions,
+  slug: group.mentions[0].slug.split('-').slice(0, -1).join('-') // Remove last part (mentioner)
+})).sort((a, b) => a.title.localeCompare(b.title));
+
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+---
+
+<Layout title="Books - Browse by Title and Author" description="Discover books mentioned by notable writers, organized alphabetically for easy browsing.">
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-b from-orange-50/50 to-white dark:from-stone-900 dark:to-stone-900 py-16">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-light text-stone-900 dark:text-stone-100 mb-6 tracking-tight">
+          Books Library
+        </h1>
+        <p class="text-lg text-stone-600 dark:text-stone-400 font-light max-w-2xl mx-auto">
+          Explore {uniqueBooks.length} unique books mentioned by thoughtful voices. Each book includes context, sentiment analysis, and links to find or read it.
+        </p>
+      </div>
+      
+      <!-- Search -->
+      <div class="max-w-md mx-auto mb-8">
+        <div class="relative">
+          <input 
+            type="text" 
+            id="book-search"
+            placeholder="Search books or authors..."
+            class="w-full px-6 py-4 text-base border border-stone-200 dark:border-stone-700 rounded-xl bg-white/80 dark:bg-stone-800/80 backdrop-blur-sm text-stone-900 dark:text-stone-100 placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
+          >
+          <div class="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Alphabet Navigation -->
+      <div class="flex flex-wrap justify-center gap-2 mb-8">
+        <button 
+          id="show-all" 
+          class="alphabet-btn active px-3 py-1.5 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 transition-colors"
+        >
+          All
+        </button>
+        {alphabet.map(letter => (
+          <button 
+            class="alphabet-btn px-3 py-1.5 text-sm font-medium text-stone-600 dark:text-stone-400 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 hover:border-orange-200 dark:hover:border-orange-700 transition-all"
+            data-letter={letter}
+          >
+            {letter}
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Books Grid -->
+  <section class="py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <!-- Results Count -->
+      <div class="mb-8">
+        <p id="results-count" class="text-stone-600 dark:text-stone-400 text-center">
+          Showing all {uniqueBooks.length} books
+        </p>
+      </div>
+      
+      <!-- Books List -->
+      <div id="books-container" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {uniqueBooks.map((book) => (
+          <div class="book-card bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl p-6" data-title={book.title.toLowerCase()} data-author={book.author.toLowerCase()}>
+            <a href={`/mentions/${book.mentions[0].slug}`} class="block space-y-4">
+              <!-- Book Title & Author -->
+              <div class="space-y-1">
+                <h3 class="text-lg font-medium text-orange-600 dark:text-orange-400 leading-tight">
+                  {book.title}
+                </h3>
+                <p class="text-stone-600 dark:text-stone-400">
+                  {book.author}
+                  {book.publishedYear && (
+                    <span class="text-stone-500 dark:text-stone-500 text-sm ml-1">
+                      ({book.publishedYear})
+                    </span>
+                  )}
+                </p>
+              </div>
+              
+              <!-- Minimal Stats -->
+              <div class="text-sm text-stone-500 dark:text-stone-500">
+                {book.mentionCount} mention{book.mentionCount !== 1 ? 's' : ''} from {book.mentionerCount} voice{book.mentionerCount !== 1 ? 's' : ''}
+              </div>
+              
+              <!-- Sample Mentioner -->
+              <div class="pt-3 border-t border-stone-100 dark:border-stone-700">
+                <p class="text-xs text-stone-500 dark:text-stone-500">
+                  Mentioned by {book.mentions[0].source.name}
+                  {book.mentionerCount > 1 && (
+                    <span> +{book.mentionerCount - 1}</span>
+                  )}
+                </p>
+              </div>
+            </a>
+          </div>
+        ))}
+      </div>
+      
+      <!-- No Results -->
+      <div id="no-results" class="hidden text-center py-16">
+        <div class="text-stone-400 dark:text-stone-500 text-4xl mb-4">📚</div>
+        <h3 class="text-xl font-medium text-stone-900 dark:text-stone-100 mb-2">No books found</h3>
+        <p class="text-stone-600 dark:text-stone-400">Try a different search term or browse by letter.</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const books = document.querySelectorAll('.book-card') as NodeListOf<HTMLElement>;
+  const searchInput = document.getElementById('book-search') as HTMLInputElement;
+  const alphabetBtns = document.querySelectorAll('.alphabet-btn') as NodeListOf<HTMLButtonElement>;
+  const showAllBtn = document.getElementById('show-all') as HTMLButtonElement;
+  const resultsCount = document.getElementById('results-count') as HTMLElement;
+  const noResults = document.getElementById('no-results') as HTMLElement;
+  const booksContainer = document.getElementById('books-container') as HTMLElement;
+
+  let currentFilter = 'all';
+  let currentSearch = '';
+
+  function filterBooks() {
+    let visibleCount = 0;
+    
+    books.forEach(book => {
+      const title = book.getAttribute('data-title') || '';
+      const author = book.getAttribute('data-author') || '';
+      const firstLetter = title.charAt(0).toUpperCase();
+      
+      // Check alphabet filter
+      const passesAlphabetFilter = currentFilter === 'all' || firstLetter === currentFilter;
+      
+      // Check search filter
+      const passesSearchFilter = currentSearch === '' || 
+        title.includes(currentSearch.toLowerCase()) || 
+        author.includes(currentSearch.toLowerCase());
+      
+      if (passesAlphabetFilter && passesSearchFilter) {
+        book.style.display = 'block';
+        visibleCount++;
+      } else {
+        book.style.display = 'none';
+      }
+    });
+    
+    // Update UI
+    if (visibleCount === 0) {
+      booksContainer.classList.add('hidden');
+      noResults.classList.remove('hidden');
+    } else {
+      booksContainer.classList.remove('hidden');
+      noResults.classList.add('hidden');
+    }
+    
+    // Update count
+    const totalBooks = books.length;
+    if (currentFilter === 'all' && currentSearch === '') {
+      resultsCount.textContent = `Showing all ${totalBooks} books`;
+    } else {
+      resultsCount.textContent = `Showing ${visibleCount} of ${totalBooks} books`;
+    }
+  }
+
+  // Search functionality
+  searchInput.addEventListener('input', () => {
+    currentSearch = searchInput.value;
+    filterBooks();
+  });
+
+  // Alphabet filter functionality
+  alphabetBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Update active state
+      alphabetBtns.forEach(b => {
+        b.classList.remove('active', 'text-white', 'bg-orange-500');
+        b.classList.add('text-stone-600', 'dark:text-stone-400', 'bg-white', 'dark:bg-stone-800', 'border', 'border-stone-200', 'dark:border-stone-700');
+      });
+      
+      btn.classList.add('active', 'text-white', 'bg-orange-500');
+      btn.classList.remove('text-stone-600', 'dark:text-stone-400', 'bg-white', 'dark:bg-stone-800', 'border', 'border-stone-200', 'dark:border-stone-700');
+      
+      // Set filter
+      if (btn.id === 'show-all') {
+        currentFilter = 'all';
+      } else {
+        currentFilter = btn.getAttribute('data-letter') || 'all';
+      }
+      
+      filterBooks();
+    });
+  });
+
+  // Initial render
+  filterBooks();
+</script>

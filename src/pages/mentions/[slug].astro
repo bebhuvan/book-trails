@@ -1,0 +1,293 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { bookMentions } from '../../data/mentions';
+import type { BookMention } from '../../types';
+
+export async function getStaticPaths() {
+  return bookMentions.map((mention) => ({
+    params: { slug: mention.slug },
+    props: { mention },
+  }));
+}
+
+interface Props {
+  mention: BookMention;
+}
+
+const { mention } = Astro.props;
+
+const sentimentStyles = {
+  positive: 'text-emerald-600/50 dark:text-emerald-500/50',
+  neutral: 'text-stone-400 dark:text-stone-500',
+  critical: 'text-amber-600/50 dark:text-amber-500/50'
+};
+
+const sentimentLabels = {
+  positive: 'Recommended',
+  neutral: 'Referenced',
+  critical: 'Nuanced'
+};
+
+// Structured data for SEO
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "itemReviewed": {
+    "@type": "Book",
+    "name": mention.book.title,
+    "author": {
+      "@type": "Person",
+      "name": mention.book.author
+    },
+    "datePublished": mention.book.publishedYear?.toString(),
+    "url": mention.links.amazon || mention.links.archive || mention.links.gutenberg
+  },
+  "reviewBody": mention.mention.text,
+  "author": {
+    "@type": "Person",
+    "name": mention.source.name,
+    "url": mention.source.url || mention.links.mentionerWebsite || mention.links.mentionerWiki
+  },
+  "datePublished": mention.metadata.dateAdded,
+  "publisher": {
+    "@type": "Organization",
+    "name": "BookTrails",
+    "url": "https://booktrails.rabbitholes.garden"
+  },
+  "url": `https://booktrails.rabbitholes.garden/mentions/${mention.slug}`
+};
+---
+
+<Layout 
+  title={`${mention.book.title} - BookTrails`}
+  description={`${mention.source.name} mentions "${mention.book.title}" by ${mention.book.author}: ${mention.mention.text.substring(0, 150)}...`}
+>
+  <!-- Breadcrumb -->
+  <div class="bg-stone-50 dark:bg-stone-800/50 py-4">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <nav class="flex items-center space-x-2 text-sm text-stone-600 dark:text-stone-400">
+        <a href="/" class="hover:text-orange-600 dark:hover:text-orange-400 transition-colors">Home</a>
+        <span>›</span>
+        <a href="/archive" class="hover:text-orange-600 dark:hover:text-orange-400 transition-colors">Archive</a>
+        <span>›</span>
+        <span class="text-stone-900 dark:text-stone-100">{mention.book.title}</span>
+      </nav>
+    </div>
+  </div>
+
+  <article class="py-8 sm:py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <!-- Header -->
+      <header class="mb-12">
+        <div class="space-y-6">
+          <div class="space-y-3">
+            <h1 class="text-4xl font-light text-orange-600 dark:text-orange-400 tracking-tight leading-tight">
+              {mention.book.title}
+            </h1>
+            <p class="text-xl text-stone-600 dark:text-stone-400 font-medium">
+              by {mention.book.author}
+              {mention.book.publishedYear && (
+                <span class="font-normal text-stone-500 dark:text-stone-500">
+                  ({mention.book.publishedYear})
+                </span>
+              )}
+            </p>
+          </div>
+          
+          <div class="text-sm text-stone-600 dark:text-stone-400">
+            Mentioned by <span class="font-medium text-stone-900 dark:text-stone-100">{mention.source.name}</span> 
+            · <span class={`${sentimentStyles[mention.mention.sentiment]}`}>
+              {sentimentLabels[mention.mention.sentiment].toLowerCase()}
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Quote -->
+      <section class="mb-12">
+        <div class="relative pl-8">
+          <div class="absolute left-0 -top-1 text-4xl text-orange-400 dark:text-orange-500 opacity-40 font-serif leading-none select-none">
+            "
+          </div>
+          <blockquote class="text-xl text-stone-700 dark:text-stone-300 leading-relaxed italic">
+            {mention.mention.text}
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- Full Context -->
+      {mention.mention.fullContext && (
+        <section class="mb-12">
+          <h2 class="text-2xl font-light text-stone-900 dark:text-stone-100 mb-6">Full Context</h2>
+          <div class="bg-orange-50 dark:bg-orange-900/10 border-l-4 border-orange-400 dark:border-orange-500 rounded-r-xl p-8">
+            <div class="prose prose-stone dark:prose-invert max-w-none">
+              <div class="text-stone-700 dark:text-stone-300 leading-relaxed space-y-4">
+                {mention.mention.fullContext.split('\n\n').map(paragraph => {
+                  const trimmed = paragraph.trim();
+                  const speakerMatch = trimmed.match(/^([^:]+):\s*(.*)/);
+                  
+                  if (speakerMatch) {
+                    const [, speaker, text] = speakerMatch;
+                    return (
+                      <p class="not-italic">
+                        <span class="font-bold text-stone-800 dark:text-stone-200">{speaker}:</span>{' '}
+                        <span class="italic">{text}</span>
+                      </p>
+                    );
+                  } else {
+                    return <p class="italic">{trimmed}</p>;
+                  }
+                })}
+              </div>
+              <p class="text-stone-600 dark:text-stone-400 text-sm mt-6 not-italic">
+                — {mention.source.name}, {mention.source.context}
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- Source Information -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-light text-stone-900 dark:text-stone-100 mb-6">Source</h2>
+        <div class="bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl p-6">
+          <div class="flex items-start space-x-4">
+            <div class="w-12 h-12 bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-900 dark:to-orange-800 rounded-full flex items-center justify-center flex-shrink-0">
+              <span class="text-lg font-medium text-orange-700 dark:text-orange-300">
+                {mention.source.name.charAt(0)}
+              </span>
+            </div>
+            <div>
+              <h3 class="font-medium text-stone-900 dark:text-stone-100 mb-1">
+                {mention.source.name}
+              </h3>
+              <p class="text-stone-600 dark:text-stone-400 mb-3">
+                {mention.source.context}
+              </p>
+              <div class="flex flex-wrap gap-2">
+                {mention.source.url && (
+                  <a 
+                    href={mention.source.url}
+                    class="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20 hover:bg-orange-100 dark:hover:bg-orange-900/30 rounded-lg transition-colors"
+                  >
+                    📖 Read Source
+                  </a>
+                )}
+                {mention.source.socialHandle && (
+                  <a 
+                    href={`https://twitter.com/${mention.source.socialHandle.replace('@', '')}`}
+                    class="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-stone-600 hover:bg-stone-50 dark:hover:bg-stone-700 rounded-lg transition-colors"
+                  >
+                    🐦 {mention.source.socialHandle}
+                  </a>
+                )}
+                {mention.links.mentionerWiki && (
+                  <a 
+                    href={mention.links.mentionerWiki}
+                    class="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-stone-600 hover:bg-stone-50 dark:hover:bg-stone-700 rounded-lg transition-colors"
+                  >
+                    📚 Biography
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Book Links -->
+      <section class="mb-12">
+        <h2 class="text-2xl font-light text-stone-900 dark:text-stone-100 mb-6">Get the Book</h2>
+        <div class="space-y-3">
+          {mention.links.amazon && (
+            <a 
+              href={mention.links.amazon}
+              class="flex items-center gap-3 p-4 bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl"
+            >
+              <div class="text-sm text-stone-600 dark:text-stone-400">🛒</div>
+              <div>
+                <div class="font-medium text-stone-900 dark:text-stone-100">Buy on Amazon</div>
+                <div class="text-sm text-stone-600 dark:text-stone-400">Purchase new or used</div>
+              </div>
+            </a>
+          )}
+          
+          {(mention.links.archive || mention.links.gutenberg) && (
+            <a 
+              href={mention.links.archive || mention.links.gutenberg}
+              class="flex items-center gap-3 p-4 bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl"
+            >
+              <div class="text-sm text-stone-600 dark:text-stone-400">📚</div>
+              <div>
+                <div class="font-medium text-stone-900 dark:text-stone-100">Read Free</div>
+                <div class="text-sm text-stone-600 dark:text-stone-400">
+                  {mention.links.gutenberg ? 'Project Gutenberg' : 'Internet Archive'}
+                </div>
+              </div>
+            </a>
+          )}
+          
+          {mention.links.authorWiki && (
+            <a 
+              href={mention.links.authorWiki}
+              class="flex items-center gap-3 p-4 bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl"
+            >
+              <div class="text-sm text-stone-600 dark:text-stone-400">📊</div>
+              <div>
+                <div class="font-medium text-stone-900 dark:text-stone-100">About the Author</div>
+                <div class="text-sm text-stone-600 dark:text-stone-400">{mention.book.author} biography</div>
+              </div>
+            </a>
+          )}
+        </div>
+      </section>
+
+      <!-- Metadata -->
+      <section class="mb-12">
+        <div class="flex flex-wrap gap-4 text-sm text-stone-600 dark:text-stone-400">
+          <div>
+            <span class="font-medium">Added:</span> 
+            {new Date(mention.metadata.dateAdded).toLocaleDateString('en-US', { 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric' 
+            })}
+          </div>
+          {mention.metadata.tags.length > 0 && (
+            <div>
+              <span class="font-medium">Tags:</span>
+              <span class="ml-1">
+                {mention.metadata.tags.map((tag, index) => (
+                  <span key={tag}>
+                    <a href={`/archive?tag=${tag}`} class="hover:text-orange-600 dark:hover:text-orange-400 transition-colors">
+                      #{tag}
+                    </a>
+                    {index < mention.metadata.tags.length - 1 && ', '}
+                  </span>
+                ))}
+              </span>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <footer class="flex justify-between items-center pt-8 border-t border-stone-200 dark:border-stone-700">
+        <a 
+          href="/archive"
+          class="inline-flex items-center gap-2 px-4 py-2 text-stone-600 dark:text-stone-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+        >
+          ← Back to Archive
+        </a>
+        <a 
+          href="/"
+          class="inline-flex items-center gap-2 px-4 py-2 text-stone-600 dark:text-stone-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+        >
+          Home →
+        </a>
+      </footer>
+    </div>
+  </article>
+</Layout>
+
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>

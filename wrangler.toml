@@ -1,0 +1,12 @@
+name = "booktrails"
+main = "./dist/_worker.js"
+compatibility_date = "2023-08-07"
+
+[env.production]
+routes = [
+  { pattern = "booktrails.rabbitholes.garden/*", zone_name = "rabbitholes.garden" }
+]
+
+# For development
+[env.development]
+name = "booktrails-dev"

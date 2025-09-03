@@ -1,0 +1,88 @@
+---
+import type { BookMention } from '../types';
+
+interface Props {
+  mention: BookMention;
+  showFullContext?: boolean;
+}
+
+const { mention, showFullContext = false } = Astro.props;
+
+const sentimentLabels = {
+  positive: 'Recommended',
+  neutral: 'Referenced',
+  critical: 'Nuanced'
+};
+
+const sentimentStyles = {
+  positive: 'text-emerald-600/50 dark:text-emerald-500/50',
+  neutral: 'text-stone-400 dark:text-stone-500',
+  critical: 'text-amber-600/50 dark:text-amber-500/50'
+};
+---
+
+<article class="bg-white dark:bg-stone-950 rounded-xl border border-stone-200 dark:border-stone-800 cursor-pointer">
+  <a href={`/mentions/${mention.slug}`} class="block p-8">
+    <div class="space-y-6">
+      <!-- Book Info -->
+      <div class="space-y-2">
+        <h2 class="text-xl font-medium text-orange-600 dark:text-orange-400">
+          {mention.book.title}
+        </h2>
+        <p class="text-stone-600 dark:text-stone-400 font-medium">
+          {mention.book.author}
+          {mention.book.publishedYear && (
+            <span class="font-normal text-stone-500 dark:text-stone-500">
+              ({mention.book.publishedYear})
+            </span>
+          )}
+        </p>
+      </div>
+
+      <!-- Quote -->
+      <div class="relative pl-8">
+        <div class="absolute left-0 -top-1 text-4xl text-orange-400 dark:text-orange-500 opacity-40 font-serif leading-none select-none">
+          "
+        </div>
+        <blockquote class="text-stone-700 dark:text-stone-300 leading-relaxed italic text-[15px]">
+          {mention.mention.text}
+        </blockquote>
+      </div>
+
+      <!-- Source -->
+      <div class="flex items-start justify-between pt-4 border-t border-stone-100 dark:border-stone-700">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 bg-orange-50 dark:bg-orange-950/30 rounded-full flex items-center justify-center">
+            <span class="text-xs font-medium text-orange-600/70 dark:text-orange-400/70">
+              {mention.source.name.charAt(0)}
+            </span>
+          </div>
+          <div>
+            <p class="font-medium text-stone-900 dark:text-stone-100 text-sm">
+              {mention.source.name}
+            </p>
+            <p class="text-xs text-stone-600 dark:text-stone-400">
+              {mention.source.context}
+            </p>
+          </div>
+        </div>
+        
+        <span class={`text-xs ${sentimentStyles[mention.mention.sentiment]}`}>
+          {sentimentLabels[mention.mention.sentiment].toLowerCase()}
+        </span>
+      </div>
+
+      <!-- Minimal Read More -->
+      <div class="pt-4 border-t border-stone-100 dark:border-stone-700">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-stone-500 dark:text-stone-500">
+            Read more
+          </span>
+          <svg class="w-4 h-4 text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </a>
+</article>

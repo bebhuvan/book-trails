@@ -5,10 +5,20 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "wrangler pages dev dist",
+    "deploy": "astro build && wrangler deploy",
+    "deploy:production": "astro build && wrangler deploy --env production",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.13.5"
+    "@astrojs/rss": "^4.0.12",
+    "@tailwindcss/vite": "^4.1.12",
+    "astro": "^5.13.5",
+    "tailwindcss": "^4.1.12"
+  },
+  "devDependencies": {
+    "@astrojs/cloudflare": "^12.6.7",
+    "terser": "^5.44.0",
+    "wrangler": "^4.33.2"
   }
 }

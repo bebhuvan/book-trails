@@ -1,0 +1,352 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { bookMentions } from '../data/mentions';
+
+// Group by authors and aggregate data
+const authorGroups = bookMentions.reduce((acc, mention) => {
+  const authorKey = mention.book.author;
+  if (!acc[authorKey]) {
+    acc[authorKey] = {
+      name: mention.book.author,
+      books: new Set(),
+      mentions: [],
+      mentioners: new Set(),
+      wikiUrl: mention.links.authorWiki
+    };
+  }
+  acc[authorKey].books.add(mention.book.title);
+  acc[authorKey].mentions.push(mention);
+  acc[authorKey].mentioners.add(mention.source.name);
+  return acc;
+}, {} as Record<string, any>);
+
+const authors = Object.values(authorGroups).map(group => ({
+  name: group.name,
+  bookCount: group.books.size,
+  mentionCount: group.mentions.length,
+  mentionerCount: group.mentioners.size,
+  books: Array.from(group.books),
+  mentions: group.mentions,
+  wikiUrl: group.wikiUrl,
+  slug: group.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+})).sort((a, b) => a.name.localeCompare(b.name));
+
+// Group authors by first letter
+const authorsByLetter = authors.reduce((acc, author) => {
+  const letter = author.name.charAt(0).toUpperCase();
+  if (!acc[letter]) {
+    acc[letter] = [];
+  }
+  acc[letter].push(author);
+  return acc;
+}, {} as Record<string, any>);
+
+const availableLetters = Object.keys(authorsByLetter).sort();
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+---
+
+<Layout title="Authors - Browse by Author" description="Discover authors whose books are mentioned by notable writers and thinkers.">
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-b from-orange-50/50 to-white dark:from-stone-900 dark:to-stone-900 py-16">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-light text-stone-900 dark:text-stone-100 mb-6 tracking-tight">
+          Authors Directory
+        </h1>
+        <p class="text-lg text-stone-600 dark:text-stone-400 font-light max-w-2xl mx-auto">
+          Explore {authors.length} authors whose works are mentioned by thoughtful voices. Discover new writers through the books that influenced others.
+        </p>
+      </div>
+      
+      <!-- Search -->
+      <div class="max-w-md mx-auto mb-8">
+        <div class="relative">
+          <input 
+            type="text" 
+            id="author-search"
+            placeholder="Search authors..."
+            class="w-full px-6 py-4 text-base border border-stone-200 dark:border-stone-700 rounded-xl bg-white/80 dark:bg-stone-800/80 backdrop-blur-sm text-stone-900 dark:text-stone-100 placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all"
+          >
+          <div class="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Alphabet Navigation -->
+      <div class="flex flex-wrap justify-center gap-2 mb-8">
+        <button 
+          id="show-all" 
+          class="alphabet-btn active px-3 py-1.5 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600 transition-colors"
+        >
+          All
+        </button>
+        {alphabet.map(letter => {
+          const isAvailable = availableLetters.includes(letter);
+          return (
+            <button 
+              class={`alphabet-btn px-3 py-1.5 text-sm font-medium rounded-lg transition-all ${
+                isAvailable 
+                  ? 'text-stone-600 dark:text-stone-400 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 hover:border-orange-200 dark:hover:border-orange-700' 
+                  : 'text-stone-400 dark:text-stone-600 bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 cursor-not-allowed'
+              }`}
+              data-letter={letter}
+              disabled={!isAvailable}
+            >
+              {letter}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Authors Grid -->
+  <section class="py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <!-- Results Count -->
+      <div class="mb-8">
+        <p id="results-count" class="text-stone-600 dark:text-stone-400 text-center">
+          Showing all {authors.length} authors
+        </p>
+      </div>
+      
+      <!-- Authors List -->
+      <div id="authors-container" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {authors.map((author) => (
+          <div class="author-card bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl p-6" data-name={author.name.toLowerCase()}>
+            <a href={`/mentions/${author.mentions[0].slug}`} class="block space-y-4">
+              <!-- Author Name -->
+              <div>
+                <h3 class="text-lg font-medium text-orange-600 dark:text-orange-400 leading-tight">
+                  {author.name}
+                </h3>
+                <div class="text-sm text-stone-500 dark:text-stone-500 mt-1">
+                  {author.bookCount} book{author.bookCount !== 1 ? 's' : ''}, {author.mentionCount} mention{author.mentionCount !== 1 ? 's' : ''}
+                </div>
+              </div>
+              
+              <!-- Featured Book -->
+              <div class="text-sm text-stone-600 dark:text-stone-400">
+                <span class="italic">"{author.books[0]}"</span>
+                {author.books.length > 1 && (
+                  <span class="text-xs text-stone-500 dark:text-stone-500 ml-1">
+                    +{author.books.length - 1}
+                  </span>
+                )}
+              </div>
+              
+              <!-- Sample Mentioner -->
+              <div class="pt-3 border-t border-stone-100 dark:border-stone-700">
+                <p class="text-xs text-stone-500 dark:text-stone-500">
+                  Mentioned by {author.mentions[0].source.name}
+                  {author.mentionerCount > 1 && (
+                    <span> +{author.mentionerCount - 1}</span>
+                  )}
+                </p>
+              </div>
+            </a>
+          </div>
+        ))}
+      </div>
+      
+      <!-- No Results -->
+      <div id="no-results" class="hidden text-center py-16">
+        <div class="text-stone-400 dark:text-stone-500 text-4xl mb-4">✍️</div>
+        <h3 class="text-xl font-medium text-stone-900 dark:text-stone-100 mb-2">No authors found</h3>
+        <p class="text-stone-600 dark:text-stone-400">Try a different search term or browse by letter.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Book Details Modal -->
+  <div id="books-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-stone-800 rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden">
+      <div class="p-6 border-b border-stone-200 dark:border-stone-700">
+        <div class="flex items-center justify-between">
+          <h3 id="modal-author-name" class="text-xl font-medium text-stone-900 dark:text-stone-100"></h3>
+          <button id="close-modal" class="p-2 text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div id="modal-content" class="p-6 overflow-y-auto max-h-[60vh]">
+        <!-- Content will be populated by JavaScript -->
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script define:vars={{ authorsData: authors }}>
+  const authorCards = document.querySelectorAll('.author-card') as NodeListOf<HTMLElement>;
+  const searchInput = document.getElementById('author-search') as HTMLInputElement;
+  const alphabetBtns = document.querySelectorAll('.alphabet-btn') as NodeListOf<HTMLButtonElement>;
+  const showAllBtn = document.getElementById('show-all') as HTMLButtonElement;
+  const resultsCount = document.getElementById('results-count') as HTMLElement;
+  const noResults = document.getElementById('no-results') as HTMLElement;
+  const authorsContainer = document.getElementById('authors-container') as HTMLElement;
+  
+  // Modal elements
+  const booksModal = document.getElementById('books-modal') as HTMLElement;
+  const modalAuthorName = document.getElementById('modal-author-name') as HTMLElement;
+  const modalContent = document.getElementById('modal-content') as HTMLElement;
+  const closeModal = document.getElementById('close-modal') as HTMLElement;
+
+  let currentFilter = 'all';
+  let currentSearch = '';
+
+  function filterAuthors() {
+    let visibleCount = 0;
+    
+    authorCards.forEach(card => {
+      const name = card.getAttribute('data-name') || '';
+      const firstLetter = name.charAt(0).toUpperCase();
+      
+      // Check alphabet filter
+      const passesAlphabetFilter = currentFilter === 'all' || firstLetter === currentFilter;
+      
+      // Check search filter
+      const passesSearchFilter = currentSearch === '' || name.includes(currentSearch.toLowerCase());
+      
+      if (passesAlphabetFilter && passesSearchFilter) {
+        card.style.display = 'block';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+    
+    // Update UI
+    if (visibleCount === 0) {
+      authorsContainer.classList.add('hidden');
+      noResults.classList.remove('hidden');
+    } else {
+      authorsContainer.classList.remove('hidden');
+      noResults.classList.add('hidden');
+    }
+    
+    // Update count
+    const totalAuthors = authorCards.length;
+    if (currentFilter === 'all' && currentSearch === '') {
+      resultsCount.textContent = `Showing all ${totalAuthors} authors`;
+    } else {
+      resultsCount.textContent = `Showing ${visibleCount} of ${totalAuthors} authors`;
+    }
+  }
+
+  // Search functionality
+  searchInput.addEventListener('input', () => {
+    currentSearch = searchInput.value;
+    filterAuthors();
+  });
+
+  // Alphabet filter functionality
+  alphabetBtns.forEach(btn => {
+    if (!btn.disabled) {
+      btn.addEventListener('click', () => {
+        // Update active state
+        alphabetBtns.forEach(b => {
+          b.classList.remove('active', 'text-white', 'bg-orange-500');
+          b.classList.add('text-stone-600', 'dark:text-stone-400', 'bg-white', 'dark:bg-stone-800', 'border', 'border-stone-200', 'dark:border-stone-700');
+        });
+        
+        btn.classList.add('active', 'text-white', 'bg-orange-500');
+        btn.classList.remove('text-stone-600', 'dark:text-stone-400', 'bg-white', 'dark:bg-stone-800', 'border', 'border-stone-200', 'dark:border-stone-700');
+        
+        // Set filter
+        if (btn.id === 'show-all') {
+          currentFilter = 'all';
+        } else {
+          currentFilter = btn.getAttribute('data-letter') || 'all';
+        }
+        
+        filterAuthors();
+      });
+    }
+  });
+
+  // Modal functionality
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('view-books-btn')) {
+      const authorName = target.getAttribute('data-author');
+      const author = authorsData.find(a => a.name === authorName);
+      
+      if (author) {
+        modalAuthorName.textContent = author.name;
+        modalContent.innerHTML = `
+          <div class="space-y-6">
+            <div>
+              <h4 class="text-lg font-medium text-stone-900 dark:text-stone-100 mb-4">
+                All Books (${author.bookCount})
+              </h4>
+              <div class="space-y-3">
+                ${author.books.map((book: string) => {
+                  const mention = author.mentions.find((m: any) => m.book.title === book);
+                  return `
+                    <div class="flex items-start justify-between p-3 bg-stone-50 dark:bg-stone-700 rounded-lg">
+                      <div>
+                        <p class="font-medium text-stone-900 dark:text-stone-100">"${book}"</p>
+                        ${mention ? `
+                          <p class="text-sm text-stone-600 dark:text-stone-400 mt-1">
+                            Mentioned by ${mention.source.name}
+                          </p>
+                        ` : ''}
+                      </div>
+                      ${mention ? `
+                        <a href="/mentions/${mention.slug}" class="text-xs font-medium text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 whitespace-nowrap">
+                          View →
+                        </a>
+                      ` : ''}
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+            <div class="pt-4 border-t border-stone-200 dark:border-stone-700">
+              <h4 class="text-lg font-medium text-stone-900 dark:text-stone-100 mb-4">
+                Mentioned By (${author.mentionerCount})
+              </h4>
+              <div class="flex flex-wrap gap-2">
+                ${Array.from(new Set(author.mentions.map((m: any) => m.source.name))).map((name: string) => `
+                  <span class="px-3 py-1 bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 text-sm font-medium rounded-full">
+                    ${name}
+                  </span>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+        booksModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+  });
+
+  // Close modal
+  const closeModalHandler = () => {
+    booksModal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+  };
+
+  closeModal.addEventListener('click', closeModalHandler);
+  booksModal.addEventListener('click', (e) => {
+    if (e.target === booksModal) {
+      closeModalHandler();
+    }
+  });
+
+  // Escape key to close modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !booksModal.classList.contains('hidden')) {
+      closeModalHandler();
+    }
+  });
+
+  // Initial render
+  filterAuthors();
+</script>
