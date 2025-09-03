@@ -10,7 +10,7 @@ export default defineConfig({
   
   // Performance optimizations
   build: {
-    inlineStylesheets: 'auto',
+    inlineStylesheets: 'always',
   },
   compressHTML: true,
   
