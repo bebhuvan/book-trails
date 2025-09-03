@@ -245,6 +245,37 @@ export const bookMentions: BookMention[] = [
       verified: true,
       featured: true
     }
+  },
+  {
+    id: '9',
+    slug: 'silver-edge-art-risking-everything-cowen',
+    book: {
+      title: 'The Edge: The Art of Risking Everything',
+      author: 'Nate Silver',
+      publishedYear: 2024
+    },
+    mention: {
+      text: "The example I think I use in the book is Ezekiel Emanuel, telling people you shouldn't go to restaurants because we still have some COVIDs like now, in 2022, 2023, right? But he rides a motorcycle, which is known to be one of the most dangerous things per mile that you can do. People are usually not super meta-rational about risk.",
+      fullContext: "Tyler Cowen: Now, there's plenty of material in your book about people who take a lot of risk. The subtitle is The Art of Risking Everything. How much do you think people segregate areas of risk-taking? For instance, people might say, \"Well, Tyler, you travel to some dangerous locations.\" But I'm totally afraid to scuba dive. I feel I'm very strongly segregated. I either take a fair amount of risk or close to none at all. Is that your model of most humans?\n\nNate Silver: That's pretty normal. Yes. The example I think I use in the book is Ezekiel Emanuel, telling people you shouldn't go to restaurants because we still have some COVIDs like now, in 2022, 2023, right? But he rides a motorcycle, which is known to be one of the most dangerous things per mile that you can do. People are usually not super meta-rational about risk.\n\nTyler Cowen: But should they be? Should you have one general risk attitude? Is that more meta-rational?\n\nNate Silver: Look, I think things that seem irrational are often rational on a higher plane, right?\n\nTyler Cowen: Sure. Yes.\n\nNate Silver: Like loss aversion. I had a pair of headphones stolen from me the other day, and I felt very guilty about that. We hadn't locked the door of our car, and it was my fault.\n\nTyler Cowen: This is in New York?\n\nNate Silver: Actually, in upstate New York. You've got to be careful in upstate.\n\nTyler Cowen: Real home of thieves. Sure.\n\nNate Silver: You're like, \"Oh, okay. I can afford a new pair of headphones. It's not that big a deal.\" If you were chronically sloppy about things like that, then that would cause more hardship and would be wasteful, and so, loss aversion, things like that — they come from flawed iterations of rationality that might serve a higher purpose or might have served an evolutionary purpose earlier in human civilization.",
+      sentiment: 'positive'
+    },
+    source: {
+      name: 'Nate Silver',
+      context: 'Conversations with Tyler - Episode with Nate Silver',
+      url: 'https://conversationswithtyler.com/episodes/nate-silver-3/'
+    },
+    links: {
+      amazon: 'https://www.amazon.in/Edge-Art-Risking-Everything/dp/1594204128',
+      authorWiki: 'https://en.wikipedia.org/wiki/Nate_Silver',
+      mentionerWiki: 'https://marginalrevolution.com/marginalrevolution/2025/08/my-excellent-conversation-with-nate-silver-2.html',
+      mentionerWebsite: 'https://www.natesilver.net'
+    },
+    metadata: {
+      dateAdded: '2025-01-03',
+      tags: ['risk-taking', 'psychology', 'decision-making', 'behavioral-economics'],
+      verified: true,
+      featured: true
+    }
   }
 ];
 
