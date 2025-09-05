@@ -61,8 +61,8 @@ const structuredData = {
 ---
 
 <Layout 
-  title={`${mention.book.title} - BookTrails`}
-  description={`${mention.source.name} mentions "${mention.book.title}" by ${mention.book.author}: ${mention.mention.text.substring(0, 150)}...`}
+  title={`${mention?.book?.title || 'Unknown Book'} - BookTrails`}
+  description={`${mention?.source?.name || 'Someone'} mentions "${mention?.book?.title || 'Unknown Book'}" by ${mention?.book?.author || 'Unknown Author'}: ${mention?.mention?.text?.substring(0, 150) || ''}...`}
 >
   <!-- Breadcrumb -->
   <div class="bg-stone-50 dark:bg-stone-800/50 py-4">
@@ -72,7 +72,7 @@ const structuredData = {
         <span>›</span>
         <a href="/archive" class="hover:text-orange-600 dark:hover:text-orange-400 transition-colors">Archive</a>
         <span>›</span>
-        <span class="text-stone-900 dark:text-stone-100">{mention.book.title}</span>
+        <span class="text-stone-900 dark:text-stone-100">{mention?.book?.title || 'Unknown Book'}</span>
       </nav>
     </div>
   </div>
@@ -84,11 +84,11 @@ const structuredData = {
         <div class="space-y-6">
           <div class="space-y-3">
             <h1 class="text-4xl font-light text-orange-600 dark:text-orange-400 tracking-tight leading-tight">
-              {mention.book.title}
+              {mention?.book?.title || 'Unknown Book'}
             </h1>
             <p class="text-xl text-stone-600 dark:text-stone-400 font-medium">
-              by {mention.book.author}
-              {mention.book.publishedYear && (
+              by {mention?.book?.author || 'Unknown Author'}
+              {mention?.book?.publishedYear && (
                 <span class="font-normal text-stone-500 dark:text-stone-500">
                   ({mention.book.publishedYear})
                 </span>
@@ -97,9 +97,9 @@ const structuredData = {
           </div>
           
           <div class="text-sm text-stone-600 dark:text-stone-400">
-            Mentioned by <span class="font-medium text-stone-900 dark:text-stone-100">{mention.source.name}</span> 
-            · <span class={`${sentimentStyles[mention.mention.sentiment]}`}>
-              {sentimentLabels[mention.mention.sentiment].toLowerCase()}
+            Mentioned by <span class="font-medium text-stone-900 dark:text-stone-100">{mention?.source?.name || 'Unknown'}</span> 
+            · <span class={`${sentimentStyles[mention?.mention?.sentiment || 'neutral']}`}>
+              {sentimentLabels[mention?.mention?.sentiment || 'neutral'].toLowerCase()}
             </span>
           </div>
         </div>
@@ -112,19 +112,19 @@ const structuredData = {
             "
           </div>
           <blockquote class="text-xl text-stone-700 dark:text-stone-300 leading-relaxed italic">
-            {mention.mention.text}
+            {mention?.mention?.text || 'No quote available'}
           </blockquote>
         </div>
       </section>
 
       <!-- Full Context -->
-      {mention.mention.fullContext && (
+      {mention?.mention?.fullContext && (
         <section class="mb-12">
           <h2 class="text-2xl font-light text-stone-900 dark:text-stone-100 mb-6">Full Context</h2>
           <div class="bg-orange-50 dark:bg-orange-900/10 border-l-4 border-orange-400 dark:border-orange-500 rounded-r-xl p-8">
             <div class="prose prose-stone dark:prose-invert max-w-none">
               <div class="text-stone-700 dark:text-stone-300 leading-relaxed space-y-4">
-                {mention.mention.fullContext.split('\n\n').map(paragraph => {
+                {mention?.mention?.fullContext?.split('\n\n').map(paragraph => {
                   const trimmed = paragraph.trim();
                   const speakerMatch = trimmed.match(/^([^:]+):\s*(.*)/);
                   
@@ -142,7 +142,7 @@ const structuredData = {
                 })}
               </div>
               <p class="text-stone-600 dark:text-stone-400 text-sm mt-6 not-italic">
-                — {mention.source.name}, {mention.source.context}
+                — {mention?.source?.name || 'Unknown'}, {mention?.source?.context || 'Unknown source'}
               </p>
             </div>
           </div>
@@ -156,18 +156,18 @@ const structuredData = {
           <div class="flex items-start space-x-4">
             <div class="w-12 h-12 bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-900 dark:to-orange-800 rounded-full flex items-center justify-center flex-shrink-0">
               <span class="text-lg font-medium text-orange-700 dark:text-orange-300">
-                {mention.source.name.charAt(0)}
+                {mention?.source?.name?.charAt(0) || '?'}
               </span>
             </div>
             <div>
               <h3 class="font-medium text-stone-900 dark:text-stone-100 mb-1">
-                {mention.source.name}
+                {mention?.source?.name || 'Unknown'}
               </h3>
               <p class="text-stone-600 dark:text-stone-400 mb-3">
-                {mention.source.context}
+                {mention?.source?.context || 'Unknown source'}
               </p>
               <div class="flex flex-wrap gap-2">
-                {mention.source.url && (
+                {mention?.source?.url && (
                   <a 
                     href={mention.source.url}
                     class="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20 hover:bg-orange-100 dark:hover:bg-orange-900/30 rounded-lg transition-colors"
@@ -175,12 +175,12 @@ const structuredData = {
                     📖 Read Source
                   </a>
                 )}
-                {mention.source.socialHandle && (
+                {mention?.source?.socialHandle && (
                   <a 
-                    href={`https://twitter.com/${mention.source.socialHandle.replace('@', '')}`}
+                    href={`https://twitter.com/${mention?.source?.socialHandle?.replace('@', '') || ''}`}
                     class="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-stone-600 hover:bg-stone-50 dark:hover:bg-stone-700 rounded-lg transition-colors"
                   >
-                    🐦 {mention.source.socialHandle}
+                    🐦 {mention?.source?.socialHandle || '@unknown'}
                   </a>
                 )}
                 {mention.links.mentionerWiki && (
