@@ -7,7 +7,7 @@ export async function getStaticPaths() {
   return bookMentions
     .filter(mention => mention?.slug && mention?.book?.title && mention?.book?.author)
     .map((mention) => ({
-      params: { slug: mention.slug },
+      params: { slug: mention?.slug || '' },
       props: { mention },
     }));
 }
@@ -16,7 +16,14 @@ interface Props {
   mention: BookMention;
 }
 
-const { mention } = Astro.props;
+// In SSR mode, get the mention from the slug parameter
+const { slug } = Astro.params;
+const mention = bookMentions.find(m => m.slug === slug);
+
+// If no mention found, return 404
+if (!mention) {
+  return Astro.redirect('/404', 404);
+}
 
 const sentimentStyles = {
   positive: 'text-emerald-600/50 dark:text-emerald-500/50',
@@ -56,7 +63,7 @@ const structuredData = {
     "name": "BookTrails",
     "url": "https://booktrails.rabbitholes.garden"
   },
-  "url": `https://booktrails.rabbitholes.garden/mentions/${mention.slug}`
+  "url": `https://booktrails.rabbitholes.garden/mentions/${mention?.slug || ''}`
 };
 ---
 
@@ -90,7 +97,7 @@ const structuredData = {
               by {mention?.book?.author || 'Unknown Author'}
               {mention?.book?.publishedYear && (
                 <span class="font-normal text-stone-500 dark:text-stone-500">
-                  ({mention.book.publishedYear})
+                  ({mention?.book?.publishedYear})
                 </span>
               )}
             </p>
@@ -169,7 +176,7 @@ const structuredData = {
               <div class="flex flex-wrap gap-2">
                 {mention?.source?.url && (
                   <a 
-                    href={mention.source.url}
+                    href={mention?.source?.url}
                     class="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20 hover:bg-orange-100 dark:hover:bg-orange-900/30 rounded-lg transition-colors"
                   >
                     📖 Read Source
@@ -183,9 +190,9 @@ const structuredData = {
                     🐦 {mention?.source?.socialHandle || '@unknown'}
                   </a>
                 )}
-                {mention.links.mentionerWiki && (
+                {mention?.links?.mentionerWiki && (
                   <a 
-                    href={mention.links.mentionerWiki}
+                    href={mention?.links?.mentionerWiki}
                     class="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-stone-600 hover:bg-stone-50 dark:hover:bg-stone-700 rounded-lg transition-colors"
                   >
                     📚 Biography
@@ -201,9 +208,9 @@ const structuredData = {
       <section class="mb-12">
         <h2 class="text-2xl font-light text-stone-900 dark:text-stone-100 mb-6">Get the Book</h2>
         <div class="space-y-3">
-          {mention.links.amazon && (
+          {mention?.links?.amazon && (
             <a 
-              href={mention.links.amazon}
+              href={mention?.links?.amazon}
               class="flex items-center gap-3 p-4 bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl"
             >
               <div class="text-sm text-stone-600 dark:text-stone-400">🛒</div>
@@ -214,30 +221,30 @@ const structuredData = {
             </a>
           )}
           
-          {(mention.links.archive || mention.links.gutenberg) && (
+          {(mention?.links?.archive || mention?.links?.gutenberg) && (
             <a 
-              href={mention.links.archive || mention.links.gutenberg}
+              href={mention?.links?.archive || mention?.links?.gutenberg}
               class="flex items-center gap-3 p-4 bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl"
             >
               <div class="text-sm text-stone-600 dark:text-stone-400">📚</div>
               <div>
                 <div class="font-medium text-stone-900 dark:text-stone-100">Read Free</div>
                 <div class="text-sm text-stone-600 dark:text-stone-400">
-                  {mention.links.gutenberg ? 'Project Gutenberg' : 'Internet Archive'}
+                  {mention?.links?.gutenberg ? 'Project Gutenberg' : 'Internet Archive'}
                 </div>
               </div>
             </a>
           )}
           
-          {mention.links.authorWiki && (
+          {mention?.links?.authorWiki && (
             <a 
-              href={mention.links.authorWiki}
+              href={mention?.links?.authorWiki}
               class="flex items-center gap-3 p-4 bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 rounded-xl"
             >
               <div class="text-sm text-stone-600 dark:text-stone-400">📊</div>
               <div>
                 <div class="font-medium text-stone-900 dark:text-stone-100">About the Author</div>
-                <div class="text-sm text-stone-600 dark:text-stone-400">{mention.book.author} biography</div>
+                <div class="text-sm text-stone-600 dark:text-stone-400">{mention?.book?.author} biography</div>
               </div>
             </a>
           )}
@@ -249,22 +256,22 @@ const structuredData = {
         <div class="flex flex-wrap gap-4 text-sm text-stone-600 dark:text-stone-400">
           <div>
             <span class="font-medium">Added:</span> 
-            {new Date(mention.metadata.dateAdded).toLocaleDateString('en-US', { 
+            {new Date(mention?.metadata?.dateAdded || '').toLocaleDateString('en-US', { 
               year: 'numeric', 
               month: 'long', 
               day: 'numeric' 
             })}
           </div>
-          {mention.metadata.tags.length > 0 && (
+          {(mention?.metadata?.tags?.length || 0) > 0 && (
             <div>
               <span class="font-medium">Tags:</span>
               <span class="ml-1">
-                {mention.metadata.tags.map((tag, index) => (
+                {(mention?.metadata?.tags || []).map((tag, index) => (
                   <span key={tag}>
                     <a href={`/archive?tag=${tag}`} class="hover:text-orange-600 dark:hover:text-orange-400 transition-colors">
                       #{tag}
                     </a>
-                    {index < mention.metadata.tags.length - 1 && ', '}
+                    {index < (mention?.metadata?.tags?.length || 0) - 1 && ', '}
                   </span>
                 ))}
               </span>

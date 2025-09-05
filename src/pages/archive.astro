@@ -4,10 +4,10 @@ import MentionCard from '../components/MentionCard.astro';
 import { bookMentions } from '../data/mentions';
 
 const sortedMentions = [...bookMentions].sort((a, b) => 
-  new Date(b.metadata.dateAdded).getTime() - new Date(a.metadata.dateAdded).getTime()
+  new Date(b?.metadata?.dateAdded || '').getTime() - new Date(a?.metadata?.dateAdded || '').getTime()
 );
 
-const uniqueTags = Array.from(new Set(bookMentions.flatMap(mention => mention.metadata.tags))).sort();
+const uniqueTags = Array.from(new Set(bookMentions.flatMap(mention => mention?.metadata?.tags || []))).sort();
 const sentiments = ['all', 'positive', 'neutral', 'critical'] as const;
 ---
 
@@ -138,7 +138,7 @@ const sentiments = ['all', 'positive', 'neutral', 'critical'] as const;
       
       <div class="flex flex-wrap justify-center gap-3">
         {uniqueTags.map(tag => {
-          const mentionCount = bookMentions.filter(mention => mention.metadata.tags.includes(tag)).length;
+          const mentionCount = bookMentions.filter(mention => mention?.metadata?.tags?.includes(tag)).length;
           return (
             <button 
               class="tag-pill inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-stone-600 dark:text-stone-400 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-full hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:text-orange-600 dark:hover:text-orange-400 hover:border-orange-200 dark:hover:border-orange-700 transition-all cursor-pointer"
@@ -178,40 +178,40 @@ const sentiments = ['all', 'positive', 'neutral', 'critical'] as const;
     // Search filter
     if (searchTerm) {
       filtered = filtered.filter(mention => 
-        mention.book.title.toLowerCase().includes(searchTerm) ||
-        mention.book.author.toLowerCase().includes(searchTerm) ||
-        mention.source.name.toLowerCase().includes(searchTerm) ||
-        mention.mention.text.toLowerCase().includes(searchTerm)
+        mention?.book?.title?.toLowerCase().includes(searchTerm) ||
+        mention?.book?.author?.toLowerCase().includes(searchTerm) ||
+        mention?.source?.name?.toLowerCase().includes(searchTerm) ||
+        mention?.mention?.text?.toLowerCase().includes(searchTerm)
       );
     }
 
     // Sentiment filter
     if (selectedSentiment !== 'all') {
-      filtered = filtered.filter(mention => mention.mention.sentiment === selectedSentiment);
+      filtered = filtered.filter(mention => mention?.mention?.sentiment === selectedSentiment);
     }
 
     // Tag filter
     if (selectedTag !== 'all') {
-      filtered = filtered.filter(mention => mention.metadata.tags.includes(selectedTag));
+      filtered = filtered.filter(mention => mention?.metadata?.tags?.includes(selectedTag));
     }
 
     // Sort
     const sortBy = sortFilter.value;
     switch (sortBy) {
       case 'oldest':
-        filtered.sort((a, b) => new Date(a.metadata.dateAdded).getTime() - new Date(b.metadata.dateAdded).getTime());
+        filtered.sort((a, b) => new Date(a?.metadata?.dateAdded || '').getTime() - new Date(b?.metadata?.dateAdded || '').getTime());
         break;
       case 'book-title':
-        filtered.sort((a, b) => a.book.title.localeCompare(b.book.title));
+        filtered.sort((a, b) => (a?.book?.title || '').localeCompare(b?.book?.title || ''));
         break;
       case 'author':
-        filtered.sort((a, b) => a.book.author.localeCompare(b.book.author));
+        filtered.sort((a, b) => (a?.book?.author || '').localeCompare(b?.book?.author || ''));
         break;
       case 'mentioner':
-        filtered.sort((a, b) => a.source.name.localeCompare(b.source.name));
+        filtered.sort((a, b) => (a?.source?.name || '').localeCompare(b?.source?.name || ''));
         break;
       default: // newest
-        filtered.sort((a, b) => new Date(b.metadata.dateAdded).getTime() - new Date(a.metadata.dateAdded).getTime());
+        filtered.sort((a, b) => new Date(b?.metadata?.dateAdded || '').getTime() - new Date(a?.metadata?.dateAdded || '').getTime());
     }
 
     filteredMentions = filtered;
