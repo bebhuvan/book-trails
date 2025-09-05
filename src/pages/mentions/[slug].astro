@@ -44,13 +44,13 @@ const structuredData = {
     "datePublished": mention?.book?.publishedYear?.toString(),
     "url": mention?.links?.amazon || mention?.links?.archive || mention?.links?.gutenberg
   },
-  "reviewBody": mention.mention.text,
+  "reviewBody": mention?.mention?.text || "",
   "author": {
     "@type": "Person",
-    "name": mention.source.name,
-    "url": mention.source.url || mention.links.mentionerWebsite || mention.links.mentionerWiki
+    "name": mention?.source?.name || "Unknown",
+    "url": mention?.source?.url || mention?.links?.mentionerWebsite || mention?.links?.mentionerWiki
   },
-  "datePublished": mention.metadata.dateAdded,
+  "datePublished": mention?.metadata?.dateAdded,
   "publisher": {
     "@type": "Organization",
     "name": "BookTrails",
