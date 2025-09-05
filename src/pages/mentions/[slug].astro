@@ -4,10 +4,12 @@ import { bookMentions } from '../../data/mentions';
 import type { BookMention } from '../../types';
 
 export async function getStaticPaths() {
-  return bookMentions.map((mention) => ({
-    params: { slug: mention.slug },
-    props: { mention },
-  }));
+  return bookMentions
+    .filter(mention => mention?.slug && mention?.book?.title && mention?.book?.author)
+    .map((mention) => ({
+      params: { slug: mention.slug },
+      props: { mention },
+    }));
 }
 
 interface Props {
@@ -34,13 +36,13 @@ const structuredData = {
   "@type": "Review",
   "itemReviewed": {
     "@type": "Book",
-    "name": mention.book.title,
+    "name": mention?.book?.title || "Unknown Title",
     "author": {
       "@type": "Person",
-      "name": mention.book.author
+      "name": mention?.book?.author || "Unknown Author"
     },
-    "datePublished": mention.book.publishedYear?.toString(),
-    "url": mention.links.amazon || mention.links.archive || mention.links.gutenberg
+    "datePublished": mention?.book?.publishedYear?.toString(),
+    "url": mention?.links?.amazon || mention?.links?.archive || mention?.links?.gutenberg
   },
   "reviewBody": mention.mention.text,
   "author": {
