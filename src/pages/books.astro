@@ -4,6 +4,12 @@ import { bookMentions } from '../data/mentions';
 
 // Group books and aggregate mention data
 const bookGroups = bookMentions.reduce((acc, mention) => {
+  // Skip mentions without proper book data
+  if (!mention?.book?.title || !mention?.book?.author) {
+    console.warn('Skipping mention with missing book data:', mention);
+    return acc;
+  }
+  
   const key = `${mention.book.title}|${mention.book.author}`;
   if (!acc[key]) {
     acc[key] = {
@@ -14,8 +20,12 @@ const bookGroups = bookMentions.reduce((acc, mention) => {
     };
   }
   acc[key].mentions.push(mention);
-  acc[key].mentioners.add(mention.source.name);
-  acc[key].sentiments[mention.mention.sentiment]++;
+  if (mention.source?.name) {
+    acc[key].mentioners.add(mention.source.name);
+  }
+  if (mention.mention?.sentiment) {
+    acc[key].sentiments[mention.mention.sentiment]++;
+  }
   return acc;
 }, {} as Record<string, any>);
 
