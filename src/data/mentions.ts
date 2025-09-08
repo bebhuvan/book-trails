@@ -276,6 +276,98 @@ export const bookMentions: BookMention[] = [
       verified: true,
       featured: true
     }
+  },
+  {
+    id: '10',
+    slug: 'dalrymple-shattered-lands-kamath',
+    book: {
+      title: 'Shattered Lands: Five Partitions and the Making of Modern Asia',
+      author: 'Sam Dalrymple',
+      publishedYear: 2024
+    },
+    mention: {
+      text: "Shattered Lands by @SamDalrymple123 is a must-read for history buffs.",
+      fullContext: "I didn't realise that lands from Muscat and Oman, the UAE, all the way to Burma were once part of the British Indian Empire. I'd always thought of India's partition as only involving India, Pakistan, and Bangladesh.\n\nShattered Lands by @SamDalrymple123 is a must-read for history buffs. And thanks to good genes, I guess. :)\n\nThe Anarchy by @DalrympleWill is still one of my favourites. It tells the story of how the East India Company came to India to trade, became immensely wealthy, and, in their pursuit of more, became ruthless.\n\nIt makes me wonder: today, as trillion-dollar companies rise, what happens if they turn evil, too?",
+      sentiment: 'positive'
+    },
+    source: {
+      name: 'Nithin Kamath',
+      context: 'Twitter recommendation',
+      socialHandle: '@Nithin0dha',
+      url: 'https://x.com/Nithin0dha/status/1959520259784036523'
+    },
+    links: {
+      amazon: 'https://www.amazon.in/Shattered-Lands-Partitions-Making-Modern/dp/9369894624',
+      authorWiki: 'https://en.wikipedia.org/wiki/Sam_Dalrymple_(historian)',
+      mentionerWebsite: 'https://nithinkamath.me'
+    },
+    metadata: {
+      dateAdded: '2025-01-24',
+      tags: ['history', 'asia', 'partition', 'geopolitics', 'modern-history'],
+      verified: true,
+      featured: true
+    }
+  },
+  {
+    id: '11',
+    slug: 'roberts-domination-rubinstein',
+    book: {
+      title: 'Domination',
+      author: 'Alice Roberts',
+      publishedYear: 2024
+    },
+    mention: {
+      text: "I'm unlikely to read this but it strikes me as a little bit lame to write a whole book quite obviously trying to challenge Tom Holland's _Dominion_ & then not even mention him by name.",
+      fullContext: "I'm unlikely to read this but it strikes me as a little bit lame to write a whole book quite obviously trying to challenge Tom Holland's _Dominion_ & then not even mention him by name.\n\n> This book feels like one last obnoxious death rattle of New Atheism. Building an identity out of the nonexistence of God was always a tricky project. The further attempt to fill the god-shaped whole with, essentially, the Lib Dem manifesto was doomed from day one.\n> — Peter Hague (@peterrhague)",
+      sentiment: 'critical'
+    },
+    source: {
+      name: 'Samuel Rubinstein',
+      context: 'Twitter discussion',
+      socialHandle: '@si_rubinstein',
+      url: 'https://x.com/si_rubinstein/status/1963967718429778258'
+    },
+    links: {
+      amazon: 'https://www.amazon.in/Domination-Alice-Roberts/dp/1398510092',
+      authorWiki: 'https://en.wikipedia.org/wiki/Alice_Roberts'
+    },
+    metadata: {
+      dateAdded: '2025-01-24',
+      tags: ['religion', 'philosophy', 'new-atheism', 'criticism', 'cultural-analysis'],
+      verified: true,
+      featured: true
+    }
+  },
+  {
+    id: '12',
+    slug: 'bennett-brief-history-intelligence-hidalgo',
+    book: {
+      title: 'A Brief History of Intelligence: Why the Evolution of the Brain Holds the Key to the Future of AI',
+      author: 'Max Bennett',
+      publishedYear: 2023
+    },
+    mention: {
+      text: "This is the best book I've read this year. It is also an important book. In a world obsessed with AI, Max Bennett approaches intelligence from a key point of view: biology.",
+      fullContext: "This is the best book I've read this year. It is also an important book. In a world obsessed with AI, Max Bennett (@maxsbennett) approaches intelligence from a key point of view: biology.\n\nA Brief History of Intelligence assembles the many mechanisms that contribute to intelligence in chronological order. This is not just clever structure. By explaining the problem each mechanism solves you get a deep understanding of why intelligence emerged and how it differs among species.\n\nIn this theory, intelligence emerges in animals because, unlike plants who can produce their own food, or fungi who eat what is already dead, animals roam the environment in search for something to kill and eat. In some ways, animals developed intelligence because we started in the worse ecological niche and were forced to innovate to survive.\n\nThese innovations start with the problem of deciding a common direction of motion in a multicellular organism. One of the things I found extremely refreshing, is that Bennet explains these mechanisms by summarizing experiments on c. elegans, a microscopic worm with about 300 or so neurons, that can be used to understand a primitive dopamine system and even emotions.\n\nDo you ever feel like running away when you are in an uncomfortable situation? Do you like dancing when things go your way? Well, so does this little worm.\n\nThe book is filled with clever experiments that help separate the intelligence of worms, fish, and us, while showing that we still have much in common. When do we start recognizing patterns, and why? Why do the mechanisms that allow us to learn can lead to addiction? Why is imagination a key to intelligence?\n\nFrom the basics of sensory input, valence, and motility Bennet takes us into neurochemistry, reinforcement learning, and credit assignment problems, showing that what we consider cutting edge research in machine learning is often something that evolution solved over one hundred million years ago. A truly refreshing read that humbles the field of AI while putting it into a broader perspective.\n\nI would recommend this book to everyone interested in AI. After all, it is about something more general. About the I, no matter if it comes with an A or not. It is about the common problems that lead to the development of that I, and how these are shared by biological and artificial systems.\n\n5 stars!!",
+      sentiment: 'positive'
+    },
+    source: {
+      name: 'César A. Hidalgo',
+      context: 'Twitter book review and recommendation',
+      socialHandle: '@cesifoti',
+      url: 'https://x.com/cesifoti/status/1964665827958964640'
+    },
+    links: {
+      amazon: 'https://www.amazon.in/Brief-History-Intelligence-Evolution-Future/dp/0008560137',
+      authorWebsite: 'https://www.abriefhistoryofintelligence.com',
+      mentionerWiki: 'https://en.wikipedia.org/wiki/César_Hidalgo'
+    },
+    metadata: {
+      dateAdded: '2025-01-24',
+      tags: ['artificial-intelligence', 'neuroscience', 'evolution', 'biology', 'cognitive-science', 'machine-learning'],
+      verified: true,
+      featured: true
+    }
   }
 ];
 
