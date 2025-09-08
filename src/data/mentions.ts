@@ -318,7 +318,7 @@ export const bookMentions: BookMention[] = [
     },
     mention: {
       text: "I'm unlikely to read this but it strikes me as a little bit lame to write a whole book quite obviously trying to challenge Tom Holland's _Dominion_ & then not even mention him by name.",
-      fullContext: "I'm unlikely to read this but it strikes me as a little bit lame to write a whole book quite obviously trying to challenge Tom Holland's _Dominion_ & then not even mention him by name.\n\n> This book feels like one last obnoxious death rattle of New Atheism. Building an identity out of the nonexistence of God was always a tricky project. The further attempt to fill the god-shaped whole with, essentially, the Lib Dem manifesto was doomed from day one.\n> — Peter Hague (@peterrhague)",
+      fullContext: "I'm unlikely to read this but it strikes me as a little bit lame to write a whole book quite obviously trying to challenge Tom Holland's _Dominion_ & then not even mention him by name.\n\n> This book feels like one last obnoxious death rattle of New Atheism. Building an identity out of the nonexistence of God was always a tricky project. The further attempt to fill the god-shaped whole with, essentially, the Lib Dem manifesto was doomed from day one.\n> \n> — Peter Hague (@peterrhague) [https://x.com/peterrhague/status/1964382664107933734](https://x.com/peterrhague/status/1964382664107933734)",
       sentiment: 'critical'
     },
     source: {
