@@ -1,4 +1,5 @@
-User-agent: *
+export async function GET() {
+  return new Response(`User-agent: *
 Allow: /
 
 # XML Sitemap
@@ -16,4 +17,9 @@ Allow: /mentions/
 Allow: /search
 Allow: /archive
 Allow: /books
-Allow: /authors
+Allow: /authors`, {
+    headers: {
+      'Content-Type': 'text/plain',
+    },
+  });
+}
