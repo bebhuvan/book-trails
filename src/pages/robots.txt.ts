@@ -1,4 +1,6 @@
-export async function GET() {
+import type { APIRoute } from 'astro';
+
+export const GET: APIRoute = async () => {
   const robotsTxt = `User-agent: *
 Allow: /
 
@@ -26,4 +28,4 @@ Allow: /authors`;
       'Cache-Control': 'public, max-age=86400', // 24 hours
     },
   });
-}
+};
