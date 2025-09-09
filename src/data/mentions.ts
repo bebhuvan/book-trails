@@ -368,6 +368,254 @@ export const bookMentions: BookMention[] = [
       verified: true,
       featured: true
     }
+  },
+  {
+    id: '13',
+    slug: 'huang-1587-year-no-significance-sine',
+    book: {
+      title: '1587, A Year of No Significance',
+      author: 'Ray Huang',
+      publishedYear: 1981
+    },
+    mention: {
+      text: "1587 is absolutely one of the great books on Chinese history. It is a series of vignettes, each a chapter centered on the life of a single notable individual in a single year during the Ming dynasty's decline.",
+      fullContext: "1587 is absolutely one of the great books on Chinese history. It is a series of vignettes, each a chapter centered on the life of a single notable individual in a single year during the Ming dynasty's decline.\n\nActually kind of gives ATLA's \"Tales of Ba Sing Se\" vibe\n\nif you're unfamiliar with Tales of Ba Sing Se please rectify your ignorance forthwith\n\n1587 gives a vivid sense of the stultifying moral-political order of the late Ming. And nobody was more put upon than the emperor himself.\n\nOne deeply sympathizes with Wan Li's decision to just quiet quit for 4 decades.\n\n一本好书 made it into a tv episode\n\nAs one would expect, though, Huang saves the best for last. Even the chapter title—a divided conscience—is chef's kiss.\n\nIt profiles a devote Confucian civil servant (Li Zhi) who at the age of 50 decides the tartuffery is just too much and becomes a buddhist monk.\n\nbut his fate was to be the same as all of 1587's protagonists: a group whose fascinating \"toil and trouble proved to be only futile.\"\n\nAn aside, his China: A Macro History is also really good, concise, often incisive intro text overviewing the duration of the country's history.\n\nI don't know of any that do a better job!",
+      sentiment: 'positive'
+    },
+    source: {
+      name: 'Jonathon P Sine',
+      context: 'Twitter thread recommendation',
+      socialHandle: '@JonathonPSine',
+      url: 'https://x.com/JonathonPSine/status/1965189951454368007'
+    },
+    links: {
+      authorWiki: 'https://en.wikipedia.org/wiki/Ray_Huang',
+      mentionerWebsite: 'https://jonathonsine.com/home',
+      review: 'https://www.astralcodexten.com/p/your-book-review-1587-a-year-of-no?hide_intro_popup=true'
+    },
+    metadata: {
+      dateAdded: '2025-09-09',
+      tags: ['chinese-history', 'ming-dynasty', 'historical-biography', 'political-history'],
+      verified: true,
+      featured: true
+    }
+  },
+  {
+    id: '14',
+    slug: 'huang-china-macro-history-sine',
+    book: {
+      title: 'China: A Macro History',
+      author: 'Ray Huang',
+      publishedYear: 1988
+    },
+    mention: {
+      text: "An aside, his China: A Macro History is also really good, concise, often incisive intro text overviewing the duration of the country's history. I don't know of any that do a better job!",
+      fullContext: "An aside, his China: A Macro History is also really good, concise, often incisive intro text overviewing the duration of the country's history.\n\nI don't know of any that do a better job!",
+      sentiment: 'positive'
+    },
+    source: {
+      name: 'Jonathon P Sine',
+      context: 'Twitter thread recommendation',
+      socialHandle: '@JonathonPSine',
+      url: 'https://x.com/JonathonPSine/status/1965204611872268576'
+    },
+    links: {
+      amazon: 'https://www.amazon.in/China-Macro-History-Ray-Huang/dp/0873324528',
+      authorWiki: 'https://en.wikipedia.org/wiki/Ray_Huang',
+      mentionerWebsite: 'https://jonathonsine.com/home'
+    },
+    metadata: {
+      dateAdded: '2025-09-09',
+      tags: ['chinese-history', 'historical-overview', 'introductory-text', 'comprehensive-history'],
+      verified: true,
+      featured: true
+    }
+  },
+  {
+    id: '15',
+    slug: 'vogel-deng-xiaoping-transformation-china-ma',
+    book: {
+      title: 'Deng Xiaoping and the Transformation of China',
+      author: 'Ezra F. Vogel',
+      publishedYear: 2011
+    },
+    mention: {
+      text: "I recommend six books that serve as the necessary foundation for in-depth understanding of China.",
+      fullContext: "I am launching a blog on Chinese political economy. It's my contribution to the conversation on China.\n\n\"An ancient civilization starting anew, China remains poorly understood by the world. Superficial resemblance to the Soviet Union masks its complex history, distinctive culture, and hybrid economy. Yet the importance of getting China right can hardly be overstated.\"\n\nIn the inaugural essay, I recommend six books that serve as the necessary foundation for in-depth understanding of China.\n\nDeng Xiaoping and the Transformation of China (2011) by Ezra Vogel\n\n1587, a Year of No Significance (1981) by Ray Huang\n\nThe Rise of Modern China, 6th Edition (1999) by Immanuel C. Y. Hsu\n\nPrisoner of the State: The Secret Journal of Premier Zhao Ziyang (2009) by Zhao Ziyang\n\nThe State Strikes Back (2019) by Nicholas Lardy\n\nHow China Works: An Introduction to China's State-Led Economic Development (2024) by Lan Xiaohuan",
+      sentiment: 'positive'
+    },
+    source: {
+      name: 'Zixuan Ma',
+      context: 'Twitter thread - Six Foundational Books on China',
+      socialHandle: '@ZixuanMaWrites',
+      url: 'https://x.com/ZixuanMaWrites/status/1962297509684105484'
+    },
+    links: {
+      amazon: 'https://www.amazon.in/Deng-Xiaoping-Transformation-China-Vogel/dp/0674725867',
+      authorWiki: 'https://en.wikipedia.org/wiki/Ezra_F._Vogel',
+      mentionerBlog: 'https://zixuanma.blog/p/the-six-foundational-books-to-read'
+    },
+    metadata: {
+      dateAdded: '2025-09-09',
+      tags: ['chinese-history', 'political-economy', 'biography', 'economic-reform', 'deng-xiaoping'],
+      verified: true,
+      featured: true
+    }
+  },
+  {
+    id: '16',
+    slug: 'huang-1587-year-no-significance-ma',
+    book: {
+      title: '1587, A Year of No Significance',
+      author: 'Ray Huang',
+      publishedYear: 1981
+    },
+    mention: {
+      text: "I recommend six books that serve as the necessary foundation for in-depth understanding of China.",
+      fullContext: "I am launching a blog on Chinese political economy. It's my contribution to the conversation on China.\n\n\"An ancient civilization starting anew, China remains poorly understood by the world. Superficial resemblance to the Soviet Union masks its complex history, distinctive culture, and hybrid economy. Yet the importance of getting China right can hardly be overstated.\"\n\nIn the inaugural essay, I recommend six books that serve as the necessary foundation for in-depth understanding of China.\n\nDeng Xiaoping and the Transformation of China (2011) by Ezra Vogel\n\n1587, a Year of No Significance (1981) by Ray Huang\n\nThe Rise of Modern China, 6th Edition (1999) by Immanuel C. Y. Hsu\n\nPrisoner of the State: The Secret Journal of Premier Zhao Ziyang (2009) by Zhao Ziyang\n\nThe State Strikes Back (2019) by Nicholas Lardy\n\nHow China Works: An Introduction to China's State-Led Economic Development (2024) by Lan Xiaohuan",
+      sentiment: 'positive'
+    },
+    source: {
+      name: 'Zixuan Ma',
+      context: 'Twitter thread - Six Foundational Books on China',
+      socialHandle: '@ZixuanMaWrites',
+      url: 'https://x.com/ZixuanMaWrites/status/1962297509684105484'
+    },
+    links: {
+      authorWiki: 'https://en.wikipedia.org/wiki/Ray_Huang',
+      mentionerBlog: 'https://zixuanma.blog/p/the-six-foundational-books-to-read',
+      review: 'https://www.astralcodexten.com/p/your-book-review-1587-a-year-of-no?hide_intro_popup=true'
+    },
+    metadata: {
+      dateAdded: '2025-09-09',
+      tags: ['chinese-history', 'political-economy', 'ming-dynasty', 'foundational-reading'],
+      verified: true,
+      featured: true
+    }
+  },
+  {
+    id: '17',
+    slug: 'hsu-rise-modern-china-ma',
+    book: {
+      title: 'The Rise of Modern China, 6th Edition',
+      author: 'Immanuel C.Y. Hsu',
+      publishedYear: 1999
+    },
+    mention: {
+      text: "I recommend six books that serve as the necessary foundation for in-depth understanding of China.",
+      fullContext: "I am launching a blog on Chinese political economy. It's my contribution to the conversation on China.\n\n\"An ancient civilization starting anew, China remains poorly understood by the world. Superficial resemblance to the Soviet Union masks its complex history, distinctive culture, and hybrid economy. Yet the importance of getting China right can hardly be overstated.\"\n\nIn the inaugural essay, I recommend six books that serve as the necessary foundation for in-depth understanding of China.\n\nDeng Xiaoping and the Transformation of China (2011) by Ezra Vogel\n\n1587, a Year of No Significance (1981) by Ray Huang\n\nThe Rise of Modern China, 6th Edition (1999) by Immanuel C. Y. Hsu\n\nPrisoner of the State: The Secret Journal of Premier Zhao Ziyang (2009) by Zhao Ziyang\n\nThe State Strikes Back (2019) by Nicholas Lardy\n\nHow China Works: An Introduction to China's State-Led Economic Development (2024) by Lan Xiaohuan",
+      sentiment: 'positive'
+    },
+    source: {
+      name: 'Zixuan Ma',
+      context: 'Twitter thread - Six Foundational Books on China',
+      socialHandle: '@ZixuanMaWrites',
+      url: 'https://x.com/ZixuanMaWrites/status/1962297509684105484'
+    },
+    links: {
+      amazon: 'https://www.amazon.in/Rise-Modern-China-Immanuel-C-Y/dp/0195087216',
+      authorWiki: 'https://en.wikipedia.org/wiki/Immanuel_C._Y._Hsu',
+      mentionerBlog: 'https://zixuanma.blog/p/the-six-foundational-books-to-read'
+    },
+    metadata: {
+      dateAdded: '2025-09-09',
+      tags: ['chinese-history', 'political-economy', 'modern-china', 'foundational-reading', 'textbook'],
+      verified: true,
+      featured: true
+    }
+  },
+  {
+    id: '18',
+    slug: 'zhao-prisoner-of-state-ma',
+    book: {
+      title: 'Prisoner of the State: The Secret Journal of Premier Zhao Ziyang',
+      author: 'Zhao Ziyang',
+      publishedYear: 2009
+    },
+    mention: {
+      text: "I recommend six books that serve as the necessary foundation for in-depth understanding of China.",
+      fullContext: "I am launching a blog on Chinese political economy. It's my contribution to the conversation on China.\n\n\"An ancient civilization starting anew, China remains poorly understood by the world. Superficial resemblance to the Soviet Union masks its complex history, distinctive culture, and hybrid economy. Yet the importance of getting China right can hardly be overstated.\"\n\nIn the inaugural essay, I recommend six books that serve as the necessary foundation for in-depth understanding of China.\n\nDeng Xiaoping and the Transformation of China (2011) by Ezra Vogel\n\n1587, a Year of No Significance (1981) by Ray Huang\n\nThe Rise of Modern China, 6th Edition (1999) by Immanuel C. Y. Hsu\n\nPrisoner of the State: The Secret Journal of Premier Zhao Ziyang (2009) by Zhao Ziyang\n\nThe State Strikes Back (2019) by Nicholas Lardy\n\nHow China Works: An Introduction to China's State-Led Economic Development (2024) by Lan Xiaohuan",
+      sentiment: 'positive'
+    },
+    source: {
+      name: 'Zixuan Ma',
+      context: 'Twitter thread - Six Foundational Books on China',
+      socialHandle: '@ZixuanMaWrites',
+      url: 'https://x.com/ZixuanMaWrites/status/1962297509684105484'
+    },
+    links: {
+      amazon: 'https://www.amazon.in/Prisoner-State-Secret-Journal-Premier/dp/1439149380',
+      editorWiki: 'https://en.wikipedia.org/wiki/Roderick_MacFarquhar',
+      mentionerBlog: 'https://zixuanma.blog/p/the-six-foundational-books-to-read'
+    },
+    metadata: {
+      dateAdded: '2025-09-09',
+      tags: ['chinese-history', 'political-economy', 'memoir', 'tiananmen-square', 'zhao-ziyang', 'foundational-reading'],
+      verified: true,
+      featured: true
+    }
+  },
+  {
+    id: '19',
+    slug: 'lardy-state-strikes-back-ma',
+    book: {
+      title: 'The State Strikes Back: The End of Economic Reform in China?',
+      author: 'Nicholas Lardy',
+      publishedYear: 2019
+    },
+    mention: {
+      text: "I recommend six books that serve as the necessary foundation for in-depth understanding of China.",
+      fullContext: "I am launching a blog on Chinese political economy. It's my contribution to the conversation on China.\n\n\"An ancient civilization starting anew, China remains poorly understood by the world. Superficial resemblance to the Soviet Union masks its complex history, distinctive culture, and hybrid economy. Yet the importance of getting China right can hardly be overstated.\"\n\nIn the inaugural essay, I recommend six books that serve as the necessary foundation for in-depth understanding of China.\n\nDeng Xiaoping and the Transformation of China (2011) by Ezra Vogel\n\n1587, a Year of No Significance (1981) by Ray Huang\n\nThe Rise of Modern China, 6th Edition (1999) by Immanuel C. Y. Hsu\n\nPrisoner of the State: The Secret Journal of Premier Zhao Ziyang (2009) by Zhao Ziyang\n\nThe State Strikes Back (2019) by Nicholas Lardy\n\nHow China Works: An Introduction to China's State-Led Economic Development (2024) by Lan Xiaohuan",
+      sentiment: 'positive'
+    },
+    source: {
+      name: 'Zixuan Ma',
+      context: 'Twitter thread - Six Foundational Books on China',
+      socialHandle: '@ZixuanMaWrites',
+      url: 'https://x.com/ZixuanMaWrites/status/1962297509684105484'
+    },
+    links: {
+      amazon: 'https://www.amazon.in/State-Strikes-Back-Economic-Reform/dp/0881327379',
+      authorWebsite: 'https://www.piie.com/experts/senior-research-staff/nicholas-r-lardy',
+      mentionerBlog: 'https://zixuanma.blog/p/the-six-foundational-books-to-read'
+    },
+    metadata: {
+      dateAdded: '2025-09-09',
+      tags: ['chinese-economy', 'political-economy', 'economic-reform', 'state-intervention', 'contemporary-china', 'foundational-reading'],
+      verified: true,
+      featured: true
+    }
+  },
+  {
+    id: '20',
+    slug: 'lan-how-china-works-ma',
+    book: {
+      title: 'How China Works: An Introduction to China\'s State-Led Economic Development',
+      author: 'Xiaohuan Lan',
+      publishedYear: 2024
+    },
+    mention: {
+      text: "I recommend six books that serve as the necessary foundation for in-depth understanding of China.",
+      fullContext: "I am launching a blog on Chinese political economy. It's my contribution to the conversation on China.\n\n\"An ancient civilization starting anew, China remains poorly understood by the world. Superficial resemblance to the Soviet Union masks its complex history, distinctive culture, and hybrid economy. Yet the importance of getting China right can hardly be overstated.\"\n\nIn the inaugural essay, I recommend six books that serve as the necessary foundation for in-depth understanding of China.\n\nDeng Xiaoping and the Transformation of China (2011) by Ezra Vogel\n\n1587, a Year of No Significance (1981) by Ray Huang\n\nThe Rise of Modern China, 6th Edition (1999) by Immanuel C. Y. Hsu\n\nPrisoner of the State: The Secret Journal of Premier Zhao Ziyang (2009) by Zhao Ziyang\n\nThe State Strikes Back (2019) by Nicholas Lardy\n\nHow China Works: An Introduction to China's State-Led Economic Development (2024) by Lan Xiaohuan",
+      sentiment: 'positive'
+    },
+    source: {
+      name: 'Zixuan Ma',
+      context: 'Twitter thread - Six Foundational Books on China',
+      socialHandle: '@ZixuanMaWrites',
+      url: 'https://x.com/ZixuanMaWrites/status/1962297509684105484'
+    },
+    links: {
+      amazon: 'https://www.amazon.in/How-China-Works-Introduction-Development/dp/9819700825',
+      authorProfile: 'https://scholar.google.com/citations?user=vnHtw-UAAAAJ&hl=en',
+      mentionerBlog: 'https://zixuanma.blog/p/the-six-foundational-books-to-read'
+    },
+    metadata: {
+      dateAdded: '2025-09-09',
+      tags: ['chinese-economy', 'political-economy', 'state-led-development', 'contemporary-china', 'economic-policy', 'foundational-reading'],
+      verified: true,
+      featured: true
+    }
   }
 ];
 
