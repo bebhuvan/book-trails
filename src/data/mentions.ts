@@ -616,6 +616,128 @@ export const bookMentions: BookMention[] = [
       verified: true,
       featured: true
     }
+  },
+  {
+    id: '21',
+    slug: 'birkerts-gutenberg-elegies-marriott',
+    book: {
+      title: 'The Gutenberg Elegies: The Fate of Reading in an Electronic Age',
+      author: 'Sven Birkerts',
+      publishedYear: 1994
+    },
+    mention: {
+      text: "This is a wonderful and moving book predicting the replacement of books by screens published in 1996. The author repeatedly apologises for how pessimistic he sounds. He had no idea.",
+      sentiment: 'positive'
+    },
+    source: {
+      name: 'James Marriott',
+      context: 'Twitter recommendation',
+      socialHandle: '@j_amesmarriott',
+      url: 'https://x.com/j_amesmarriott/status/1973493428580393204'
+    },
+    links: {
+      amazon: 'https://www.amazon.in/Gutenberg-Elegies-Fate-Reading-Electronic/dp/0865479577',
+      authorWiki: 'https://en.wikipedia.org/wiki/Sven_Birkerts',
+      mentionerWebsite: 'https://jmarriott.substack.com/'
+    },
+    metadata: {
+      dateAdded: '2025-10-02',
+      tags: ['technology', 'reading', 'culture', 'digital-age', 'literature', 'media-theory'],
+      verified: true,
+      featured: true
+    }
+  },
+  {
+    id: '22',
+    slug: 'zubok-collapse-soviet-union-eden',
+    book: {
+      title: 'Collapse: The Fall of the Soviet Union',
+      author: 'Vladislav M. Zubok',
+      publishedYear: 2021
+    },
+    mention: {
+      text: "I'm halfway through now and this book is getting seriously upsetting. I've never seen someone fumble with such catastrophic consequences before. He led his whole country off a cliff for Bush to repeatedly embarrass him. Like stomach churning awfully embarrassing",
+      fullContext: "I'm halfway through now and this book is getting seriously upsetting. I've never seen someone fumble with such catastrophic consequences before. He led his whole country off a cliff for Bush to repeatedly embarrass him. Like stomach churning awfully embarrassing\n\nI have no personal or familial connections to the Soviet Union and I was born after it collapsed but I found this book strangely traumatising. An impressive but decidedly not cheerful read.",
+      sentiment: 'positive'
+    },
+    source: {
+      name: 'Anthony Eden hate account / New Left EViews',
+      context: 'Twitter discussion',
+      socialHandle: '@areyouawitchor2',
+      url: 'https://x.com/areyouawitchor2/status/1973079760323444838'
+    },
+    links: {
+      amazon: 'https://www.amazon.in/Collapse-Soviet-Vladislav-M-Zubok/dp/0300268173',
+      authorWiki: 'https://en.wikipedia.org/wiki/Vladislav_M._Zubok'
+    },
+    metadata: {
+      dateAdded: '2025-10-02',
+      tags: ['history', 'soviet-union', 'political-history', 'gorbachev', 'cold-war', 'collapse'],
+      verified: true,
+      featured: true
+    }
+  },
+  {
+    id: '23',
+    slug: 'mears-very-important-people-henderson',
+    book: {
+      title: 'Very Important People: Status and Beauty in the Global Party Circuit',
+      author: 'Ashley Mears',
+      publishedYear: 2020
+    },
+    mention: {
+      text: "Shared excerpt discussing Veblen's theory of the leisure class and status displays among the rich, focusing on how wealth is flaunted through leisurely pursuits and 'pecuniary emulation' while masking anxieties about status relative to aristocratic elite.",
+      sentiment: 'neutral'
+    },
+    source: {
+      name: 'Rob Henderson',
+      context: 'Twitter - shared book excerpt',
+      socialHandle: '@robkhenderson',
+      url: 'https://x.com/robkhenderson/status/1969393213338468609'
+    },
+    links: {
+      amazon: 'https://www.amazon.in/VERY-IMPORTANT-PEOPLE-Ashley-Mears/dp/0691168652',
+      authorWiki: 'https://en.wikipedia.org/wiki/Ashley_Mears',
+      mentionerWiki: 'https://en.wikipedia.org/wiki/Rob_Henderson',
+      mentionerWebsite: 'https://www.robkhenderson.com/'
+    },
+    metadata: {
+      dateAdded: '2025-10-02',
+      tags: ['sociology', 'status', 'wealth', 'veblen', 'conspicuous-consumption', 'social-class'],
+      verified: true,
+      featured: true
+    }
+  },
+  {
+    id: '24',
+    slug: 'buss-evolution-of-desire-henderson',
+    book: {
+      title: 'The Evolution of Desire: Strategies of Human Mating',
+      author: 'David M. Buss',
+      publishedYear: 1994
+    },
+    mention: {
+      text: "Shared excerpt discussing Langlois's research on infant preferences for attractive faces, showing that infants as young as 2-3 months looked longer at more attractive faces, and that 12-month-olds showed more positive interactions with attractive stimuli.",
+      sentiment: 'neutral'
+    },
+    source: {
+      name: 'Rob Henderson',
+      context: 'Twitter - shared book excerpt',
+      socialHandle: '@robkhenderson',
+      url: 'https://x.com/robkhenderson/status/1970478650614059374'
+    },
+    links: {
+      amazon: 'https://www.amazon.in/EVOLUTION-DESIRE-Strategies-Human-Mating/dp/0465097766',
+      authorWiki: 'https://en.wikipedia.org/wiki/David_Buss',
+      mentionerWiki: 'https://en.wikipedia.org/wiki/Rob_Henderson',
+      mentionerWebsite: 'https://www.robkhenderson.com/'
+    },
+    metadata: {
+      dateAdded: '2025-10-02',
+      tags: ['evolutionary-psychology', 'attraction', 'human-behavior', 'psychology', 'mating-strategies'],
+      verified: true,
+      featured: true
+    }
   }
 ];
 
