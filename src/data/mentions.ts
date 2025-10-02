@@ -662,7 +662,7 @@ export const bookMentions: BookMention[] = [
     },
     source: {
       name: 'Anthony Eden hate account / New Left EViews',
-      context: 'Twitter discussion',
+      context: 'Twitter - book mention',
       socialHandle: '@areyouawitchor2',
       url: 'https://x.com/areyouawitchor2/status/1973079760323444838'
     },
@@ -674,7 +674,7 @@ export const bookMentions: BookMention[] = [
       dateAdded: '2025-10-02',
       tags: ['history', 'soviet-union', 'political-history', 'gorbachev', 'cold-war', 'collapse'],
       verified: true,
-      featured: true
+      featured: false
     }
   },
   {
@@ -691,7 +691,7 @@ export const bookMentions: BookMention[] = [
     },
     source: {
       name: 'Rob Henderson',
-      context: 'Twitter - shared book excerpt',
+      context: 'Twitter - book mention (excerpt)',
       socialHandle: '@robkhenderson',
       url: 'https://x.com/robkhenderson/status/1969393213338468609'
     },
@@ -705,7 +705,7 @@ export const bookMentions: BookMention[] = [
       dateAdded: '2025-10-02',
       tags: ['sociology', 'status', 'wealth', 'veblen', 'conspicuous-consumption', 'social-class'],
       verified: true,
-      featured: true
+      featured: false
     }
   },
   {
@@ -722,7 +722,7 @@ export const bookMentions: BookMention[] = [
     },
     source: {
       name: 'Rob Henderson',
-      context: 'Twitter - shared book excerpt',
+      context: 'Twitter - book mention (excerpt)',
       socialHandle: '@robkhenderson',
       url: 'https://x.com/robkhenderson/status/1970478650614059374'
     },
@@ -736,7 +736,7 @@ export const bookMentions: BookMention[] = [
       dateAdded: '2025-10-02',
       tags: ['evolutionary-psychology', 'attraction', 'human-behavior', 'psychology', 'mating-strategies'],
       verified: true,
-      featured: true
+      featured: false
     }
   }
 ];
